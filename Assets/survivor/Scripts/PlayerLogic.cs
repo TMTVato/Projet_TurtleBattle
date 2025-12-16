@@ -23,26 +23,26 @@ public class PlayerLogic : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
-  /*  void Update()
+    void Update()
     {
         movementInput.x = Input.GetAxisRaw("Horizontal");
         movementInput.y = Input.GetAxisRaw("Vertical");
     }
-  */
+
     private void FixedUpdate()
-    {   
+    {
         //bouge player
-        rb.MovePosition(rb.position + movementInput.normalized * speed * Time.fixedDeltaTime );
+        rb.MovePosition(rb.position + movementInput.normalized * speed * Time.fixedDeltaTime);
     }
 
     //input system
-    void OnMove(InputValue value)
+    /*void OnMove(InputValue value)
     {
-        movementInput = value.Get<Vector2>();
-    }
+        //movementInput = value.Get<Vector2>();
+    }*/
 
     private void LateUpdate()
     {
