@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class AreaShift : MonoBehaviour
 {
-   private int tilemapSize = 40;
+    private int tilemapSize = 40;
+    Collider2D coll;
+
+
+    void Awake()
+    {
+        coll = GetComponent<Collider2D>();
+    }
 
     void OnTriggerExit2D(Collider2D collision)
     {
@@ -39,6 +46,10 @@ public class AreaShift : MonoBehaviour
 
                 break;
             case "Enemy":
+                if(coll.enabled) {                    
+                    transform.Translate(playerDirection * tilemapSize/2 + new Vector3(Random.Range(-3f,3f), Random.Range(-3f, 3f),0f));
+                }
+
                 break;
             
 
