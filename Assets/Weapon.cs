@@ -10,6 +10,13 @@ public class Weapon : MonoBehaviour
     public int count;
     public float speed;
 
+    PlayerLogic player;
+    float timer;
+
+    private void Awake()
+    {
+        player = GetComponentInParent<PlayerLogic>();
+    }
 
     private void Start()
     {
@@ -28,7 +35,7 @@ public class Weapon : MonoBehaviour
                 break;
            
             default:
-                
+                speed = 0.4f;
                 break;
 
 
@@ -76,7 +83,12 @@ public class Weapon : MonoBehaviour
                 break;
 
             default:
-
+                timer += Time.deltaTime;
+                if (timer > speed)
+                {
+                    timer = 0;
+                    Fire();
+                }
                 break;
         }
 
@@ -91,5 +103,14 @@ public class Weapon : MonoBehaviour
 
         if( id==0)
             Batch();
+    }
+
+    public void Fire()
+    {
+        if (!player.scanner.nearestTarget)
+            return;
+        Transform bullet = GameManager.instance.poolManager.Get(prefabId).transform;
+        bullet.position = transform.position;
+
     }
 }

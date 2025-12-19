@@ -153,6 +153,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2073897903}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &87976818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 87976819}
+  - component: {fileID: 87976820}
+  m_Layer: 0
+  m_Name: Weapon 0 Bullet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &87976819
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87976818}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2035690355}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &87976820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87976818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a0ed73c39946b54b86469679e44494f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 1
+  prefabId: 2
+  damage: 100
+  count: 0
+  speed: 0
 --- !u!1 &92019602
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,6 +234,7 @@ MonoBehaviour:
   prefabs:
   - {fileID: 4322551348818442905, guid: 47b8caa2028a9d847bb35f5d5edd1956, type: 3}
   - {fileID: 3328549771641780562, guid: 010e843d65417f643bb1cb8f7522143b, type: 3}
+  - {fileID: 5698459277034210082, guid: 402c2e0efb74ab84b89602761fab3bd0, type: 3}
 --- !u!4 &92019604
 Transform:
   m_ObjectHideFlags: 0
@@ -433,6 +483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementInput: {x: 0, y: 0}
   speed: 5
+  scanner: {fileID: 0}
 --- !u!70 &378006396
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -9243,10 +9294,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0.0013192613
-    width: 0.998613
-    height: 0.99736154
+    x: 0.0013992537
+    y: 0.003957784
+    width: 0.99626863
+    height: 0.9920845
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -18841,9 +18892,10 @@ GameObject:
   - component: {fileID: 2035690354}
   - component: {fileID: 2035690353}
   - component: {fileID: 2035690352}
-  - component: {fileID: 2035690357}
   - component: {fileID: 2035690358}
   - component: {fileID: 2035690359}
+  - component: {fileID: 2035690357}
+  - component: {fileID: 2035690360}
   m_Layer: 0
   m_Name: Player_Boy
   m_TagString: Player
@@ -18982,6 +19034,7 @@ Transform:
   - {fileID: 1681354752}
   - {fileID: 2073897903}
   - {fileID: 2102008095}
+  - {fileID: 87976819}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2035690357
@@ -18998,6 +19051,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementInput: {x: 0, y: 0}
   speed: 5
+  scanner: {fileID: 0}
 --- !u!114 &2035690358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19005,7 +19059,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2035690351}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -19049,6 +19103,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2035690360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035690351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b3e19e1263639c4988f1f805865d1ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scanRange: 10
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  nearestTarget: {fileID: 0}
 --- !u!1 &2073897902
 GameObject:
   m_ObjectHideFlags: 0
