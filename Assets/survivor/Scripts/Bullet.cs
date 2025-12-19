@@ -19,7 +19,7 @@ public class Bullet : MonoBehaviour
 
         if (per > -1)
         {
-            this.rb.velocity = dir;
+            this.rb.velocity = dir * 15f;
 
         }
         
@@ -32,8 +32,9 @@ public class Bullet : MonoBehaviour
         per--;
 
         if (per == -1)
-        {
-            
+        {   
+            rb.velocity = Vector2.zero;
+            gameObject.SetActive(false);
         }
 
 

@@ -68,7 +68,7 @@ public class Weapon : MonoBehaviour
             bullet.Rotate(rotVec);
             bullet.Translate(bullet.up * 1.5f, Space.World);
 
-            bullet.GetComponent<Bullet>().Init(damage, -1) ; //infinite penetration
+            bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero) ; //infinite penetration
         }
 
 
@@ -103,14 +103,22 @@ public class Weapon : MonoBehaviour
 
         if( id==0)
             Batch();
+        else if (id == 1)
+            speed *= 0.9f; //fire rate increase
     }
 
     public void Fire()
     {
         if (!player.scanner.nearestTarget)
             return;
+
+        Vector3 targetpos = player.scanner.nearestTarget.position;
+        Vector3 dir = targetpos - transform.position;
+        dir = dir.normalized;
+
         Transform bullet = GameManager.instance.poolManager.Get(prefabId).transform;
         bullet.position = transform.position;
-
+        bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
+        bullet.GetComponent<Bullet>().Init(damage, count, dir);
     }
 }
