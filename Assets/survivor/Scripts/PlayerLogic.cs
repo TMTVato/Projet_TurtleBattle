@@ -9,6 +9,7 @@ public class PlayerLogic : MonoBehaviour
 
     public Vector2 movementInput;
     public float speed = 5f;
+    public Scanner scanner;
 
     Rigidbody2D rb;
     SpriteRenderer sR;
@@ -19,6 +20,7 @@ public class PlayerLogic : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sR = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        scanner = GetComponent<Scanner>();
     }
 
     void Start()

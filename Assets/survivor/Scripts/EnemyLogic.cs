@@ -5,22 +5,39 @@ using UnityEngine;
 public class EnemyLogic : MonoBehaviour
 {
 
-    public float speed = 2;
+    public float speed;
+    public float health;
+    public float maxHealth;
+    public RuntimeAnimatorController[] animCon;
+
     public Rigidbody2D target;
-    bool isAlive = true;
+    bool isAlive;
 
     Rigidbody2D rigid;
     SpriteRenderer spriter;
+    Animator anim;
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriter = GetComponent<SpriteRenderer>();
-        
+        anim = GetComponent<Animator>();
     }
-    void Start()
+
+
+    void OnEnable()
     {
         target = GameManager.instance.player.GetComponent<Rigidbody2D>();
+        isAlive = true;
+        health = maxHealth;
+    }
+
+    public void Initialisation(SpawnData data)
+    {
+        anim.runtimeAnimatorController = animCon[data.spriteType];
+        speed = data.speed;
+        maxHealth = data.health;
+        health = data.health;
     }
 
     // Update is called once per frame
@@ -51,4 +68,29 @@ public class EnemyLogic : MonoBehaviour
         //flip sprite dépendant de la direction
         spriter.flipX = target.position.x < rigid.position.x;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(!collision.CompareTag("Bullet"))
+        {
+           return;
+        }
+        health -= collision.GetComponent<Bullet>().damage;
+        if(health <= 0)
+        {
+            Dead(); 
+        }
+        else
+        {
+            anim.SetTrigger("Hit");
+        }
+
+        void Dead()
+        {
+            gameObject.SetActive(false);
+            
+            
+        }
+    }
+
 }
