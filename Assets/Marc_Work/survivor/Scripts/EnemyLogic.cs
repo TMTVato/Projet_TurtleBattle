@@ -8,10 +8,13 @@ public class EnemyLogic : MonoBehaviour
     public float speed;
     public float health;
     public float maxHealth;
+    public float hitstun_duration;
     public RuntimeAnimatorController[] animCon;
 
     public Rigidbody2D target;
     bool isAlive;
+    private bool isStun = false;
+    public float StartStuntime ;
 
     Rigidbody2D rigid;
     SpriteRenderer spriter;
@@ -55,9 +58,9 @@ public class EnemyLogic : MonoBehaviour
         rigid.MovePosition(rigid.position + nextVec);
         rigid.velocity = Vector2.zero;
 
-        
-
     }
+
+
 
     void LateUpdate()
     {
@@ -71,11 +74,13 @@ public class EnemyLogic : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(!collision.CompareTag("Bullet"))
+        if((!collision.CompareTag("Bullet")) || (isStun == true))
         {
            return;
         }
+        
         health -= collision.GetComponent<Bullet>().damage;
+
         if(health <= 0)
         {
             Dead(); 
@@ -83,6 +88,8 @@ public class EnemyLogic : MonoBehaviour
         else
         {
             anim.SetTrigger("Hit");
+            isStun = true;
+            StartStuntime = Time.time;
         }
 
         void Dead()
@@ -90,6 +97,22 @@ public class EnemyLogic : MonoBehaviour
             gameObject.SetActive(false);
             
             
+        }
+    }
+
+
+    public void Update()
+    {
+        CheckisStun(); //check si l'ennemi doit être stun.
+    }
+
+
+
+    private void CheckisStun()
+    {
+        if ((isStun == true) && (Time.time >= StartStuntime + hitstun_duration))
+        {
+            isStun = false;
         }
     }
 

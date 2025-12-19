@@ -45,8 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86978800780a5914ba76e45134ab17af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 6
-  life_time: 1
+  Turret: {fileID: 7129725090084248399, guid: 352113890dd2d8f489635eeb46e958fd, type: 3}
 --- !u!1 &7763203478987845799
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +56,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2695894968857734006}
   - component: {fileID: 6534738762317511985}
-  - component: {fileID: 2388868083244205131}
   m_Layer: 0
   m_Name: shot_poulpi
   m_TagString: Untagged
@@ -132,17 +130,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2388868083244205131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7763203478987845799}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86978800780a5914ba76e45134ab17af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocity: 0
-  life_time: 0

@@ -6,13 +6,9 @@ using UnityEngine;
 
 public class content : MonoBehaviour
 {
-    
-    
-    public float velocity;
-    [SerializeField] float life_time;
+    [SerializeField] private Tower_shoot Turret;
 
     float startTime;
-
 
    
     void Start()
@@ -24,9 +20,9 @@ public class content : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector2.right * Time.deltaTime * velocity);
+        transform.Translate(Vector2.right * Time.deltaTime * Turret.bullet_velocity);
 
-        if (Time.time >= startTime + life_time)
+        if (Time.time >= startTime + Turret.bullet_life_time)
         {
             Destroy(gameObject,0f);
         }
