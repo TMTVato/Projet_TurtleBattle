@@ -15,21 +15,37 @@ public class Weapon : MonoBehaviour
 
     private void Awake()
     {
-        player = GetComponentInParent<PlayerLogic>();
+        player = GameManager.instance.player;
     }
 
-    private void Start()
-    {
-        Init();
 
-    }
-
-    public void Init()
+    public void Init(ItemData data)
     {
+
+        // Basic set
+        name = data.itemName;
+        transform.parent = player.transform;
+        transform.localPosition = Vector3.zero;
+
+        //Property set
+        id = data.itemId;
+        damage = data.base_dmg;
+        count = data.base_count;
+
+        for (int i = 0; i < GameManager.instance.poolManager.prefabs.Length; i++)
+        {
+            if (data.proj == GameManager.instance.poolManager.prefabs[i])
+            {
+                prefabId = i;
+                break;
+            }
+        }
+
+        //initialize weapon stats from item data
         switch (id)
         {
             case 0: //shovel
-                speed = -150;
+                speed = 150;
 
                 Batch();
                 break;
@@ -37,11 +53,8 @@ public class Weapon : MonoBehaviour
             default:
                 speed = 0.4f;
                 break;
-
-
-
         }
-
+        player.BroadcastMessage("ApplyGear", SendMessageOptions.DontRequireReceiver);
 
     }
 
@@ -76,6 +89,7 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.instance.isLive) return;
         switch (id)
         {
             case 0: 
@@ -92,8 +106,8 @@ public class Weapon : MonoBehaviour
                 break;
         }
 
-        if (Input.GetButtonDown("Jump"))
-            LevelUp(5, 1);
+        //if (Input.GetButtonDown("Jump"))
+        //    LevelUp(5, 1);
     }
 
     public void LevelUp(float damage, int count)
@@ -103,8 +117,9 @@ public class Weapon : MonoBehaviour
 
         if( id==0)
             Batch();
-        else if (id == 1)
-            speed *= 0.9f; //fire rate increase
+        
+
+        player.BroadcastMessage("ApplyGear", SendMessageOptions.DontRequireReceiver);
     }
 
     public void Fire()
@@ -116,7 +131,11 @@ public class Weapon : MonoBehaviour
         Vector3 dir = targetpos - transform.position;
         dir = dir.normalized;
 
-        Transform bullet = GameManager.instance.poolManager.Get(prefabId).transform;
+        GameObject bulletObj = GameManager.instance.poolManager.Get(prefabId);
+        if (bulletObj == null)
+            return;
+
+        Transform bullet = bulletObj.transform;
         bullet.position = transform.position;
         bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
         bullet.GetComponent<Bullet>().Init(damage, count, dir);

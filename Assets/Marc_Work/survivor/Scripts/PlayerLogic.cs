@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -30,12 +31,15 @@ public class PlayerLogic : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.instance.isLive) return;
+
         movementInput.x = Input.GetAxisRaw("Horizontal");
         movementInput.y = Input.GetAxisRaw("Vertical");
     }
 
     private void FixedUpdate()
     {
+        if (!GameManager.instance.isLive) return;
         //bouge player
         rb.MovePosition(rb.position + movementInput.normalized * speed * Time.fixedDeltaTime);
     }
@@ -48,6 +52,7 @@ public class PlayerLogic : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (!GameManager.instance.isLive) return;
         //joue animation de marche
         animator.SetFloat("speed", movementInput.magnitude);
 

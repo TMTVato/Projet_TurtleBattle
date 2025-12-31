@@ -102,7 +102,18 @@ public class Tower_shoot : MonoBehaviour
     }//draw max range when tower is selected in the editor
 
 
+    public void SetFireRate(float newRate)
+    {
+        fire_rate = newRate;
+        if (shooting)
+        {
+            CancelInvoke();
+            InvokeRepeating("SpawnBullet", fire_rate, fire_rate);
+        }
+    }
 
-
-
+    public float GetFireRate()
+    {
+        return fire_rate;
+    }
 }

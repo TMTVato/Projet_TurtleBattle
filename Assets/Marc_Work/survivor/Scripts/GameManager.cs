@@ -9,10 +9,11 @@ public class GameManager : MonoBehaviour
     public PlayerLogic player;
     [Header("#GameObject")]
     public static GameManager instance;
-
     public PoolManager poolManager;
+    public LevelUp uiLevelUp;
 
     [Header("#Game Control")]
+    public bool isLive;
     public float gameTime;
     public float maxGameTime = 2*10f;
     [Header("#player Info")]
@@ -31,10 +32,12 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         HP = maxHP;
+        uiLevelUp.Select(0);
     }
 
     void Update()
     {
+        if (!isLive) return;
         gameTime += Time.deltaTime;
 
         if (gameTime > maxGameTime)
@@ -48,11 +51,26 @@ public class GameManager : MonoBehaviour
     {
         exp++;
 
-        if (exp == nextExp[level])
+        if (exp == nextExp[Mathf.Min(level, nextExp.Length -1)])
         {
             level++;
             exp = 0;
+            uiLevelUp.Show();
         }
+    }
+
+    // Stop the game
+    public void Stop()
+    {
+        isLive = false;
+        Time.timeScale = 0; // Pause the game
+    }
+
+    // Resume the game
+    public void Resume()
+    {
+        isLive = true;
+        Time.timeScale = 1; // Resume normal time scale
     }
 }
 

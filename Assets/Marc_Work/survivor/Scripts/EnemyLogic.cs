@@ -56,7 +56,7 @@ public class EnemyLogic : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
+        if (!GameManager.instance.isLive) return;
         if (!isAlive || anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
         {
             return;
@@ -74,6 +74,7 @@ public class EnemyLogic : MonoBehaviour
 
     void LateUpdate()
     {
+        if (!GameManager.instance.isLive) return;
         if (!isAlive)
         {
             return;

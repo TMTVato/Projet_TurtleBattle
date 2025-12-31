@@ -24,9 +24,12 @@ public class PoolManager : MonoBehaviour
     {
         GameObject select = null;
 
+        // Nettoyage des objets détruits
+        pools[index].RemoveAll(item => item == null);
+
         foreach (GameObject item in pools[index])
         {
-            if (!item.activeSelf)
+            if (item != null && !item.activeSelf)
             {
                 select = item;
                 select.SetActive(true);
@@ -39,10 +42,6 @@ public class PoolManager : MonoBehaviour
             pools[index].Add(select);
         }
 
-
-
         return select;
-
-
     }
 }
