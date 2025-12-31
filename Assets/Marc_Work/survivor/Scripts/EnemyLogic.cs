@@ -17,14 +17,19 @@ public class EnemyLogic : MonoBehaviour
     public float StartStuntime ;
 
     Rigidbody2D rigid;
+    Collider2D coll;
     SpriteRenderer spriter;
     Animator anim;
+
+    private WaitForFixedUpdate wait;
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriter = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        wait = new WaitForFixedUpdate();
+        coll = GetComponent<Collider2D>();
     }
 
 
@@ -32,7 +37,12 @@ public class EnemyLogic : MonoBehaviour
     {
         target = GameManager.instance.player.GetComponent<Rigidbody2D>();
         isAlive = true;
+        coll.enabled = true;
+        rigid.simulated = true;
+        spriter.sortingOrder = 2;
+        anim.SetBool("Dead", false);
         health = maxHealth;
+
     }
 
     public void Initialisation(SpawnData data)
@@ -47,7 +57,7 @@ public class EnemyLogic : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (!isAlive)
+        if (!isAlive || anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
         {
             return;
         }
@@ -74,30 +84,48 @@ public class EnemyLogic : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if((!collision.CompareTag("Bullet")) || (isStun == true))
+        if((!collision.CompareTag("Bullet")) || !isAlive || (isStun == true))
         {
            return;
         }
         
         health -= collision.GetComponent<Bullet>().damage;
-
-        if(health <= 0)
-        {
-            Dead(); 
-        }
-        else
+        StartCoroutine(KnockBack());
+        if (health > 0)
         {
             anim.SetTrigger("Hit");
             isStun = true;
             StartStuntime = Time.time;
         }
-
-        void Dead()
+        else
         {
-            gameObject.SetActive(false);
-            
-            
+            isAlive = false;
+            coll.enabled = false;
+            rigid.simulated = false;
+            spriter.sortingOrder = 1;
+            anim.SetBool("Dead",true);
+            //Dead();
+            GameManager.instance.kill++;
+            GameManager.instance.GetExp();
+
         }
+
+    }
+
+    // Coroutine for knockback effect
+    private IEnumerator KnockBack()
+    {
+        yield return wait;
+        Vector3 playerPos = GameManager.instance.player.transform.position;
+        Vector3 dirVec = transform.position - playerPos;
+        // Apply knockback force
+        rigid.AddForce(dirVec.normalized * 1.2f, ForceMode2D.Impulse);
+    }
+
+    // Method called when the enemy is dead
+    private void Dead()
+    {
+        gameObject.SetActive(false);
     }
 
 
