@@ -10269,9 +10269,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 0.003478261
     width: 1
-    height: 1
+    height: 0.9913044
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -14799,7 +14799,7 @@ MonoBehaviour:
   enemyCleaner: {fileID: 1698850038}
   isLive: 0
   gameTime: 0
-  maxGameTime: 200
+  maxGameTime: 300
   level: 0
   kill: 0
   exp: 0
@@ -23623,14 +23623,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnData:
   - spriteType: 0
-    spawnTime: 0.7
+    unlockTime: 30
+    spawnTime: 0.2
     health: 15
     speed: 1.5
+    spawnWeight: 10
   - spriteType: 1
+    unlockTime: 60
     spawnTime: 0.2
     health: 10
     speed: 3
-  spawnPoints: []
+    spawnWeight: 3
+  - spriteType: 2
+    unlockTime: 90
+    spawnTime: 0.2
+    health: 5
+    speed: 4
+    spawnWeight: 1
+  - spriteType: 3
+    unlockTime: 120
+    spawnTime: 0.5
+    health: 50
+    speed: 2
+    spawnWeight: 0.2
+  spawnPoints:
+  - {fileID: 1105005547}
+  - {fileID: 1636148317}
+  - {fileID: 890980619}
+  - {fileID: 371677028}
+  - {fileID: 836907870}
+  - {fileID: 1891926485}
+  - {fileID: 813855663}
+  - {fileID: 325488771}
+  - {fileID: 759008075}
+  - {fileID: 1368535705}
+  - {fileID: 57939559}
+  - {fileID: 1891224453}
+  - {fileID: 1129836689}
+  - {fileID: 1924399121}
+  - {fileID: 1112943897}
+  - {fileID: 1487764993}
+  levelTime: 20
 --- !u!1 &2076149520
 GameObject:
   m_ObjectHideFlags: 0
