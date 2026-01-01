@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     float startTime;
 
     public float damage;
-    private float per; //penetration
+    public float per; //penetration
 
     Rigidbody2D rb;
 

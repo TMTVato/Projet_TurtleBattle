@@ -64,4 +64,20 @@ public class PlayerLogic : MonoBehaviour
         }
 
     }
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if(!GameManager.instance.isLive) return;
+        GameManager.instance.HP -= Time.deltaTime * 10;
+
+        if (GameManager.instance.HP < 0) // player dead
+        {
+            for (int i = 2; i < transform.childCount; i++) // disable all children except the first two (shadow and area)
+            {
+                transform.GetChild(i).gameObject.SetActive(false);  
+            }
+            animator.SetTrigger("dead");
+            GameManager.instance.GameOver();
+        }
+    }
 }

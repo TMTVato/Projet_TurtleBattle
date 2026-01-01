@@ -20,7 +20,7 @@ MonoBehaviour:
     +{1} rotating weapon'
   itemIcon: {fileID: -181907988, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   base_dmg: 4.5
-  base_count: 3
+  base_count: 1
   level_dmg:
   - 0.5
   - 1
