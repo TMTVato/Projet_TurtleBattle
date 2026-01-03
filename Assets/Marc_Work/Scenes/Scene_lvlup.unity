@@ -10664,10 +10664,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.0020491802
-    y: 0.0034482758
-    width: 0.9959016
-    height: 0.99310344
+    x: 0.001019368
+    y: 0.0016920473
+    width: 0.99694186
+    height: 0.99492383
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -15277,10 +15277,13 @@ MonoBehaviour:
   kill: 0
   exp: 0
   HP: 0
-  maxHP: 100
+  maxHP: 10000
   nextExp: 03000000050000000a0000006400000096000000d20000001801000068010000c201000058020000
   turtleHP: 0
-  turtleMaxHP: 1000
+  turtleMaxHP: 1000000
+  bonusDamage: 0
+  bonusFireRate: 0
+  bonusPenetration: 0
 --- !u!1 &605756131
 GameObject:
   m_ObjectHideFlags: 0

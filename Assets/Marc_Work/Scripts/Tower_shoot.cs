@@ -13,8 +13,8 @@ public class Tower_shoot : MonoBehaviour
     [SerializeField] private LayerMask enemyMask;
 
     [Header("Attributes")]
-    [SerializeField] private float targetingRange = 5f;
-    [SerializeField] private float fire_rate;
+    [SerializeField] public float targetingRange = 5f;
+    [SerializeField] public float fire_rate;
     public float bullet_velocity;
     public float bullet_life_time;
     public float bullet_size;
@@ -24,7 +24,37 @@ public class Tower_shoot : MonoBehaviour
     private Transform target = null;
     private bool shooting = false;
 
+    // Valeurs de base pour les bonus
+    private float base_fire_rate;
+    private float base_bullet_damage;
+    private float base_bullet_penetration;
+    private float base_speed;
+    private float base_targetingRange;
 
+    private void Awake()
+    {
+        base_fire_rate = fire_rate;
+        base_bullet_damage = bullet_damage;
+        base_bullet_penetration = bullet_penetration;
+        base_speed = bullet_velocity;
+        base_targetingRange = targetingRange; // Ajoute cette ligne
+    }
+
+    // Méthode à appeler pour appliquer les bonus
+    public void ApplyBonuses(float bonusDamage, float bonusFireRate, float bonusPenetration, float bonusSpeed, float bonusRange)
+    {
+        bullet_damage = base_bullet_damage * (1f + bonusDamage);
+        fire_rate = base_fire_rate * (1f + bonusFireRate);
+        bullet_penetration = base_bullet_penetration * (1f - bonusPenetration) ;
+        bullet_velocity = base_speed * (1f + bonusSpeed);
+        targetingRange = base_targetingRange * (1f + bonusRange);
+
+        if (shooting)
+        {
+            CancelInvoke();
+            InvokeRepeating("SpawnBullet", fire_rate, fire_rate);
+        }
+    }
 
     private void Update()
     {
@@ -111,9 +141,17 @@ public class Tower_shoot : MonoBehaviour
             InvokeRepeating("SpawnBullet", fire_rate, fire_rate);
         }
     }
+    public float GetFireRate() => fire_rate;
 
-    public float GetFireRate()
-    {
-        return fire_rate;
-    }
+    public void SetBulletDamage(float value) => bullet_damage = value;
+    public float GetBulletDamage() => bullet_damage;
+
+    public void SetBulletPenetration(float value) => bullet_penetration = value;
+    public float GetBulletPenetration() => bullet_penetration;
+
+    public void SetBulletVelocity(float value) => bullet_velocity = value;
+    public float GetBulletVelocity() => bullet_velocity;
+
+    public void SetTargetingRange(float value) => targetingRange = value;
+    public float GetTargetingRange() => targetingRange;
 }

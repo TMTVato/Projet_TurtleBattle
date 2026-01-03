@@ -62,28 +62,7 @@ public class Item : MonoBehaviour
     {
         switch (itemData.itemType)
         {
-            case ItemData.ItemType.Range: //tower logique à faire
-            case ItemData.ItemType.Melee:
-                if (lvl == 0) // If the item is at level 0, create a new weapon and initialize it with item data
-                {
-                    GameObject newWeapon = new GameObject();
-                    weapon = newWeapon.AddComponent<Weapon>();
-                    weapon.Init(itemData);
-                }
-                else  // If the item is at a higher level, level up the existing weapon
-                {
-                    float nextDmg = itemData.base_dmg;
-                    int nextCount = 0;
-
-                    nextDmg += itemData.base_dmg * itemData.level_dmg[lvl];
-                    nextCount += itemData.level_count[lvl];
-
-                    weapon.LevelUp(nextDmg, nextCount);
-                }
-                lvl++;
-                break;
-
-            case ItemData.ItemType.Glove:
+            case ItemData.ItemType.Range: //penetration
                 if (lvl == 0)
                 {
                     GameObject newGear = new GameObject();
@@ -98,7 +77,48 @@ public class Item : MonoBehaviour
                 lvl++;
                 break;
 
-            case ItemData.ItemType.Shoe:
+            case ItemData.ItemType.Melee: //damage tower and shovel
+                if (lvl == 0) // If the item is at level 0, create a new weapon and initialize it with item data
+                {
+                    GameObject newWeapon = new GameObject();
+                    weapon = newWeapon.AddComponent<Weapon>();
+                    weapon.Init(itemData);
+                    GameObject newGear = new GameObject();
+                    gear = newGear.AddComponent<Gear>();
+                    gear.Init(itemData);
+                }
+                else  // If the item is at a higher level, level up the existing weapon
+                {
+                    float nextDmg = itemData.base_dmg;
+                    int nextCount = 0;
+
+                    nextDmg += itemData.base_dmg * itemData.level_dmg[lvl];
+                    nextCount += itemData.level_count[lvl];
+
+                    weapon.LevelUp(nextDmg, nextCount);
+
+                    float nextRate = itemData.level_dmg[lvl];
+                    gear.LevelUp(nextRate);
+                }
+                lvl++;
+                break;
+
+            case ItemData.ItemType.Glove: //fire rate
+                if (lvl == 0)
+                {
+                    GameObject newGear = new GameObject();
+                    gear = newGear.AddComponent<Gear>();
+                    gear.Init(itemData);
+                }
+                else
+                {
+                    float nextRate = itemData.level_dmg[lvl];
+                    gear.LevelUp(nextRate);
+                }
+                lvl++;
+                break;
+
+            case ItemData.ItemType.Shoe: //speed
                 if (lvl == 0) // If the item is at level 0, create a new weapon and initialize it with item data
                 {
                     GameObject newGear = new GameObject();

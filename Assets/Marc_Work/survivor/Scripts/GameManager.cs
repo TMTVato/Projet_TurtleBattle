@@ -33,6 +33,11 @@ public class GameManager : MonoBehaviour
     public float turtleHP;
     public float turtleMaxHP = 100;
 
+    public float bonusDamage = 0f;
+    public float bonusFireRate = 0f;
+    public float bonusPenetration = 0f;
+    public float bonusSpeed = 0f;
+    public float bonusRange = 0f;
 
     void Awake()
     {

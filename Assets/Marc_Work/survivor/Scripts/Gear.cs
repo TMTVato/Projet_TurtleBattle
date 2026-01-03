@@ -1,3 +1,4 @@
+// C#
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,17 +10,17 @@ public class Gear : MonoBehaviour
 
     public void Init(ItemData data)
     {
-        //Basic set
+        // Basic set
         name = "Gear " + data.itemId;
         transform.parent = GameManager.instance.player.transform;
         transform.localPosition = Vector3.zero;
 
-        //Property set
+        // Property set
         type = data.itemType;
         rate = data.level_dmg[0];
         ApplyGear();
-
     }
+
     public void LevelUp(float rate)
     {
         this.rate = rate;
@@ -30,42 +31,67 @@ public class Gear : MonoBehaviour
     {
         switch (type)
         {
+            case ItemData.ItemType.Melee:
+                DamageUp();
+                break;
             case ItemData.ItemType.Glove:
-                RateUp();
+                FireRateUp();
                 break;
             case ItemData.ItemType.Shoe:
                 SpeedUp();
                 break;
+            case ItemData.ItemType.Range:
+                PenetrationUp();
+                RangeUp();
+                break;
         }
-
     }
 
-
-
-
-    private void RateUp()
+    private void DamageUp()
     {
-        Weapon[] weapons = transform.parent.GetComponentsInChildren<Weapon>();
-        foreach (Weapon w in weapons)
-        {
-            switch(w.id)
-            {
-                case 0:
-                    w.speed = 300 + (300 * rate);
-                    break;
-                default:
-                    w.speed = 0.5f + (1f * rate);
-                    break;
-            }
-        }
-
-        // Pour toutes les tours de la scène
+        GameManager.instance.bonusDamage = rate;
         Tower_shoot[] towers = FindObjectsOfType<Tower_shoot>();
         foreach (Tower_shoot t in towers)
         {
-            float baseRate = 1f; // Remplace par la valeur de base de ta tour
-            float newRate = baseRate * (1f - rate); // Plus le rate est haut, plus la cadence est rapide
-            t.SetFireRate(newRate);
+            t.ApplyBonuses(
+                GameManager.instance.bonusDamage,
+                GameManager.instance.bonusFireRate,
+                GameManager.instance.bonusPenetration,
+                GameManager.instance.bonusSpeed,
+                GameManager.instance.bonusRange
+            );
+        }
+    }
+
+    private void FireRateUp()
+    {
+        GameManager.instance.bonusFireRate = rate;
+        Tower_shoot[] towers = FindObjectsOfType<Tower_shoot>();
+        foreach (Tower_shoot t in towers)
+        {
+            t.ApplyBonuses(
+                GameManager.instance.bonusDamage,
+                GameManager.instance.bonusFireRate,
+                GameManager.instance.bonusPenetration,
+                GameManager.instance.bonusSpeed,
+                GameManager.instance.bonusRange
+            );
+        }
+    }
+
+    private void PenetrationUp()
+    {
+        GameManager.instance.bonusPenetration = rate;
+        Tower_shoot[] towers = FindObjectsOfType<Tower_shoot>();
+        foreach (Tower_shoot t in towers)
+        {
+            t.ApplyBonuses(
+                GameManager.instance.bonusDamage,
+                GameManager.instance.bonusFireRate,
+                GameManager.instance.bonusPenetration,
+                GameManager.instance.bonusSpeed,
+                GameManager.instance.bonusRange
+            );
         }
     }
 
@@ -73,9 +99,34 @@ public class Gear : MonoBehaviour
     {
         float speed = 6;
         GameManager.instance.player.speed = speed + (speed * rate);
+        Tower_shoot[] towers = FindObjectsOfType<Tower_shoot>();
+        GameManager.instance.bonusSpeed = rate;
+        foreach (Tower_shoot t in towers)
+        {
+            t.ApplyBonuses(
+                GameManager.instance.bonusDamage,
+                GameManager.instance.bonusFireRate,
+                GameManager.instance.bonusPenetration,
+                GameManager.instance.bonusSpeed,
+                GameManager.instance.bonusRange
+            );
+        }
+    }
 
 
+    private void RangeUp()
+    {
+        GameManager.instance.bonusRange = rate;
+        Tower_shoot[] towers = FindObjectsOfType<Tower_shoot>();
+        foreach (Tower_shoot t in towers)
+        {
+            t.ApplyBonuses(
+                GameManager.instance.bonusDamage,
+                GameManager.instance.bonusFireRate,
+                GameManager.instance.bonusPenetration,
+                GameManager.instance.bonusSpeed,
+                GameManager.instance.bonusRange
+            );
+        }
     }
 }
-
-
