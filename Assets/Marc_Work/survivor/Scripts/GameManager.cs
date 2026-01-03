@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     
 
     public PlayerLogic player;
+    public TurtleLogic turtle;
     [Header("#GameObject")]
     public static GameManager instance;
     public PoolManager poolManager;
@@ -28,6 +29,10 @@ public class GameManager : MonoBehaviour
     public float maxHP = 100;
     public int[] nextExp = { 10, 30, 60, 100, 150, 210, 280, 360, 450, 600 };
 
+    [Header("#Turtle Info")]
+    public float turtleHP;
+    public float turtleMaxHP = 100;
+
 
     void Awake()
     {
@@ -36,6 +41,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         HP = maxHP;
+        turtleHP = turtleMaxHP;
         uiLevelUp.Select(0);
         Resume();
     }

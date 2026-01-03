@@ -52,7 +52,7 @@ public class Tower_shoot : MonoBehaviour
     {
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2)transform.position, 0f, enemyMask);
 
-        Debug.Log(hits.Length);
+        //Debug.Log(hits.Length);
 
         if (hits.Length > 0)
         {

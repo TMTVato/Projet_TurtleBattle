@@ -114,7 +114,13 @@ public class Item : MonoBehaviour
                 break;
 
             case ItemData.ItemType.Heal:
+                // Augmente les maxHP du joueur
+                GameManager.instance.maxHP += GameManager.instance.maxHP * itemData.level_dmg[lvl];
                 GameManager.instance.HP = GameManager.instance.maxHP;
+
+                // Augmente les maxHP de la tortue
+                GameManager.instance.turtleMaxHP += GameManager.instance.turtleMaxHP * itemData.level_dmg[lvl];
+                GameManager.instance.turtleHP = GameManager.instance.turtleMaxHP;
                 break;
         }
         

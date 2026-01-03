@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8256229404306880929}
   - component: {fileID: 4848572396510615935}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5595373486352632420}
   - component: {fileID: 7129725090084248399}
   - component: {fileID: 8660753893681251375}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Tower Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8327427246729855075}
   - component: {fileID: 6094240631278372778}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3554440517926010755}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ArrowRotationPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,7 +306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6942954231050925118}
   - component: {fileID: 2806405223540269039}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

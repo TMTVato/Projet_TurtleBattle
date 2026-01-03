@@ -68,6 +68,9 @@ public class PlayerLogic : MonoBehaviour
     void OnCollisionStay2D(Collision2D collision)
     {
         if(!GameManager.instance.isLive) return;
+        // Si la collision est avec la tortue, ne rien faire
+        if (collision.gameObject.CompareTag("Turtle")) return;
+
         GameManager.instance.HP -= Time.deltaTime * 10;
 
         if (GameManager.instance.HP < 0) // player dead

@@ -12,7 +12,8 @@ public class HUD : MonoBehaviour
         Level,
         Kill,
         Time,
-        Health
+        Health,
+        TurtleHealth
 
     }
 
@@ -56,6 +57,12 @@ public class HUD : MonoBehaviour
                 float curHP = GameManager.instance.HP;
                 float maxHP = GameManager.instance.maxHP;
                 mySlider.value = curHP / maxHP;
+                break;
+
+            case Infotype.TurtleHealth:
+                float curTurtleHP = GameManager.instance.turtleHP;
+                float maxTurtleHP = GameManager.instance.turtleMaxHP;
+                mySlider.value = curTurtleHP / maxTurtleHP;
                 break;
 
             default:

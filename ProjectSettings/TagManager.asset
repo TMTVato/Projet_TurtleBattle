@@ -8,6 +8,7 @@ TagManager:
   - Area
   - Enemy
   - Bullet
+  - Turtle
   layers:
   - Default
   - TransparentFX
