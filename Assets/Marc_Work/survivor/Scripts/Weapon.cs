@@ -81,7 +81,7 @@ public class Weapon : MonoBehaviour
             bullet.Rotate(rotVec);
             bullet.Translate(bullet.up * 1.5f, Space.World);
 
-            bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero) ; //infinite penetration
+            bullet.GetComponent<Bullet>().InitShovel(damage, -1, Vector3.zero) ; //infinite penetration
         }
 
 
@@ -138,6 +138,6 @@ public class Weapon : MonoBehaviour
         Transform bullet = bulletObj.transform;
         bullet.position = transform.position;
         bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
-        bullet.GetComponent<Bullet>().Init(damage, count, dir);
+        bullet.GetComponent<Bullet>().InitShovel(damage, count, dir);
     }
 }

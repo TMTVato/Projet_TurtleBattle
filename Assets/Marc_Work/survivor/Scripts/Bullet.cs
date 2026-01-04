@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private Tower_shoot Turret;
-    float startTime;
-
     public float damage;
-    public float per; //penetration
+    public float per; // pénétration
+    public float velocity;
+    public float lifeTime;
+    public float size;
+    [SerializeField] private Tower_shoot Turret;
 
     Rigidbody2D rb;
+    float startTime;
 
     private void Awake()
     {
@@ -29,9 +31,24 @@ public class Bullet : MonoBehaviour
         {
             Debug.LogWarning("Turret n'est pas assigné sur le prefab Bullet.");
         }
+
     }
 
-    public void Init(float damage, float per, Vector3 dir)
+    // On reçoit toutes les stats bonus ici
+    public void Init(float damage, float per, float velocity, float lifeTime, float size, Vector3 dir)
+    {
+        this.damage = damage;
+        this.per = per;
+        this.velocity = velocity;
+        this.lifeTime = lifeTime;
+        this.size = size;
+
+        rb.velocity = dir * velocity;
+        transform.localScale = Vector3.one * size;
+        startTime = Time.time;
+    }
+
+    public void InitShovel(float damage, float per, Vector3 dir)
     {
         this.damage = damage;
         this.per = per;
@@ -40,18 +57,10 @@ public class Bullet : MonoBehaviour
         {
             this.rb.velocity = dir * 15f;
         }
+
     }
 
-    void Start()
-    {
-        startTime = Time.time;
 
-        if (Turret != null)
-        {
-            transform.Rotate(Vector3.forward * -90);
-            transform.localScale = Vector3.one * Turret.bullet_size;
-        }
-    }
 
     void Update()
     {
@@ -71,12 +80,17 @@ public class Bullet : MonoBehaviour
         if (!collision.CompareTag("Enemy") || per == -1)
             return;
 
+        // Appliquer les dégâts à l'ennemi
+        var enemy = collision.GetComponent<EnemyLogic>();
+        if (enemy != null)
+            enemy.TakeDamage(damage);
+
         per--;
 
         if (per == -1)
         {
             rb.velocity = Vector2.zero;
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }

@@ -15,15 +15,15 @@ MonoBehaviour:
   itemType: 3
   itemId: 2
   itemName: Shoes
-  itemDescription: +{0}% movement speed
+  itemDescription: +{0}% movement speed and projectile
   itemIcon: {fileID: -966295699, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   base_dmg: 0
   base_count: 0
   level_dmg:
   - 0.1
   - 0.2
-  - 0.3
   - 0.4
   - 0.5
+  - 0.6
   level_count: 0000000000000000000000000000000000000000
   proj: {fileID: 0}

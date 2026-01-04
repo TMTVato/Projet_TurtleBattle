@@ -145,3 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 11
   per: 0
+  velocity: 0
+  lifeTime: 0
+  size: 0
+  Turret: {fileID: 0}

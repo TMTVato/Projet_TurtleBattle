@@ -15,15 +15,17 @@ MonoBehaviour:
   itemType: 1
   itemId: 4
   itemName: Range
-  itemDescription: "Damage increased by {0}%\r\n\r+{1} penetration'"
+  itemDescription: 'Range and velocity increased by {0}%
+
+'
   itemIcon: {fileID: -1002307068, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   base_dmg: 3
   base_count: 0
   level_dmg:
-  - 0.1
-  - 0.3
-  - 0.7
-  - 1
-  - 2
+  - 10
+  - 20
+  - 30
+  - 40
+  - 70
   level_count: 0000000000000000000000000000000000000000
   proj: {fileID: 0}

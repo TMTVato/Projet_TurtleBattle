@@ -1,18 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnerMonster : MonoBehaviour
 {
     public SpawnData[] spawnData;
     public Transform[] spawnPoints;
-    int level;
     private float timer;
-    public float levelTime;
+    public float eventSpawnMultiplier = 3f;
+
+    private bool isEventActive = false;
+    private float eventTimer = 0f;
+    private float eventDuration = 0f;
 
     private void Awake()
     {
-        // Récupère tous les points de spawn enfants (sauf le parent)
         List<Transform> points = new List<Transform>();
         foreach (Transform t in GetComponentsInChildren<Transform>())
         {
@@ -20,9 +21,6 @@ public class SpawnerMonster : MonoBehaviour
                 points.Add(t);
         }
         spawnPoints = points.ToArray();
-
-        // Calcule la durée d'un palier de niveau
-        levelTime = GameManager.instance.maxGameTime / spawnData.Length;
     }
 
     void Update()
@@ -31,27 +29,52 @@ public class SpawnerMonster : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        // Exemple : augmente le poids des ennemis forts avec le temps
         float t = GameManager.instance.gameTime / GameManager.instance.maxGameTime;
         for (int i = 0; i < spawnData.Length; i++)
         {
-            // Suppose que les ennemis forts sont à la fin du tableau
             spawnData[i].spawnWeight = Mathf.Lerp(1f, 5f, t * i / (spawnData.Length - 1));
         }
 
-        if (timer > spawnData[0].spawnTime)
+        float spawnTime = spawnData[0].spawnTime;
+        if (isEventActive) spawnTime /= eventSpawnMultiplier;
+
+        if (timer > spawnTime)
         {
             Spawn();
             timer = 0;
         }
+
+        if (isEventActive)
+        {
+            eventTimer += Time.deltaTime;
+            if (eventTimer >= eventDuration)
+            {
+                isEventActive = false;
+            }
+        }
     }
+
+    // Appelée par EventManager
+    public void StartEvent(float duration)
+    {
+        isEventActive = true;
+        eventTimer = 0f;
+        eventDuration = duration;
+    }
+
+    // Appelée par EventManager
+    public void EndEvent()
+    {
+        isEventActive = false;
+        eventTimer = 0f;
+    }
+
     SpawnData GetWeightedRandomSpawnData()
     {
         float currentTime = GameManager.instance.gameTime;
         List<SpawnData> unlocked = new List<SpawnData>();
         float totalWeight = 0f;
 
-        // Filtre les types débloqués
         foreach (var data in spawnData)
         {
             if (currentTime >= data.unlockTime)
@@ -78,8 +101,6 @@ public class SpawnerMonster : MonoBehaviour
     void Spawn()
     {
         SpawnData data = GetWeightedRandomSpawnData();
-
-        // Toujours utiliser le prefab à l'index 0
         GameObject enemy = GameManager.instance.poolManager.Get(0);
 
         if (enemy == null)
@@ -104,9 +125,9 @@ public class SpawnerMonster : MonoBehaviour
 public class SpawnData
 {
     public int spriteType;
-    public float unlockTime = 0f; // Temps (en secondes) avant que ce type puisse apparaître
-    public float spawnTime = 0.5f; // Valeur par défaut, à ajuster dans l'inspecteur
+    public float unlockTime = 0f;
+    public float spawnTime = 0.5f;
     public int health = 10;
     public float speed = 2f;
-    public float spawnWeight = 1f; // Poids de spawn (modifiable dans l’inspecteur)
+    public float spawnWeight = 1f;
 }

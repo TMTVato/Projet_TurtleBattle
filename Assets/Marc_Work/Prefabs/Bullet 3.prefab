@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -537537479, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
+  m_Sprite: {fileID: -1327499133, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -134,9 +134,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdc86bfe724b6cb48a160ce2d98d6113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Turret: {fileID: 7129725090084248399, guid: 76fd7e5427f1e4649903a60615ccae49, type: 3}
   damage: 0
   per: 0
+  velocity: 0
+  lifeTime: 0
+  size: 0
+  Turret: {fileID: 7129725090084248399, guid: 76fd7e5427f1e4649903a60615ccae49, type: 3}
 --- !u!50 &8976680656182548997
 Rigidbody2D:
   serializedVersion: 4

@@ -22,10 +22,10 @@ MonoBehaviour:
   base_dmg: 4.5
   base_count: 1
   level_dmg:
+  - 0.1
+  - 0.3
   - 0.5
-  - 1
-  - 1.5
-  - 2
-  - 2.5
+  - 0.7
+  - 1.2
   level_count: 0100000001000000010000000100000002000000
   proj: {fileID: 3328549771641780562, guid: 010e843d65417f643bb1cb8f7522143b, type: 3}

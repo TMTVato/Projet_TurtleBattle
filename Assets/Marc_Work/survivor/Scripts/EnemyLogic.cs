@@ -85,12 +85,21 @@ public class EnemyLogic : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if((!collision.CompareTag("Bullet")) || !isAlive || (isStun == true))
+        if ((!collision.CompareTag("Bullet")) || !isAlive || (isStun == true))
         {
-           return;
+            return;
         }
-        
-        health -= collision.GetComponent<Bullet>().damage;
+
+        Bullet bullet = collision.GetComponent<Bullet>();
+        if (bullet != null)
+        {
+            TakeDamage(bullet.damage);
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
         StartCoroutine(KnockBack());
         if (health > 0)
         {
@@ -104,13 +113,11 @@ public class EnemyLogic : MonoBehaviour
             coll.enabled = false;
             rigid.simulated = false;
             spriter.sortingOrder = 1;
-            anim.SetBool("Dead",true);
-            //Dead();
+            anim.SetBool("Dead", true);
             GameManager.instance.kill++;
             GameManager.instance.GetExp();
-
+            //Dead();
         }
-
     }
 
     // Coroutine for knockback effect

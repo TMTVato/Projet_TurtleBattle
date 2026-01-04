@@ -44,8 +44,8 @@ public class Tower_shoot : MonoBehaviour
     public void ApplyBonuses(float bonusDamage, float bonusFireRate, float bonusPenetration, float bonusSpeed, float bonusRange)
     {
         bullet_damage = base_bullet_damage * (1f + bonusDamage);
-        fire_rate = base_fire_rate * (1f + bonusFireRate);
-        bullet_penetration = base_bullet_penetration * (1f - bonusPenetration) ;
+        fire_rate = base_fire_rate / (1f + bonusFireRate);
+        bullet_penetration = base_bullet_penetration * (1f + bonusPenetration);
         bullet_velocity = base_speed * (1f + bonusSpeed);
         targetingRange = base_targetingRange * (1f + bonusRange);
 
@@ -115,14 +115,26 @@ public class Tower_shoot : MonoBehaviour
         if (Arrow.activeInHierarchy == true) { Arrow.SetActive(false); } //hide arrow 
     } //Stop shooting phas
 
-    private void SpawnBullet() //spawn a bullet
+    private void SpawnBullet()
     {
-        Instantiate(projectile, transform.position, ArrowRotationPoint.rotation);
+        Vector3 dir = (target.position - transform.position).normalized;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f; //ajuste angle to match sprite orientation
+        Quaternion rot = Quaternion.Euler(0, 0, angle);
+
+        GameObject bulletObj = Instantiate(projectile, transform.position, rot);
+        Bullet bullet = bulletObj.GetComponent<Bullet>();
+        if (bullet != null)
+        {
+            bullet.Init(
+                bullet_damage,
+                bullet_penetration,
+                bullet_velocity,
+                bullet_life_time,
+                bullet_size,
+                dir
+            );
+        }
     }
-
-
-
-
 
 
     private void OnDrawGizmosSelected()

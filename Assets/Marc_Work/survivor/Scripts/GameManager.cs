@@ -27,7 +27,11 @@ public class GameManager : MonoBehaviour
     public int exp;
     public float HP;
     public float maxHP = 100;
-    public int[] nextExp = { 10, 30, 60, 100, 150, 210, 280, 360, 450, 600 };
+    public int[] nextExp = {
+    5, 10, 16, 23, 31, 40, 50, 61, 73, 86,
+    100, 115, 131, 148, 166, 185, 205, 226, 248, 271,
+    295, 320, 346, 373, 401
+};
 
     [Header("#Turtle Info")]
     public float turtleHP;
