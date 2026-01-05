@@ -10913,10 +10913,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+    x: 0.001459854
+    y: 0.0056818184
+    width: 0.5839416
+    height: 2.755682
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -15540,6 +15540,7 @@ MonoBehaviour:
   nextExp: 03000000050000000a0000001e0000003c0000005a000000730000008200000091000000a6000000b9000000cd000000e2000000f80000000f010000270100002c0100009001000090010000
   turtleHP: 0
   turtleMaxHP: 1000
+  turtleregen: 0
   bonusDamage: 0
   bonusFireRate: 0
   bonusPenetration: 0
@@ -27343,24 +27344,28 @@ MonoBehaviour:
     health: 15
     speed: 1.5
     spawnWeight: 10
+    Target: {fileID: 0}
   - spriteType: 1
     unlockTime: 60
     spawnTime: 0.2
     health: 10
     speed: 3
     spawnWeight: 3
+    Target: {fileID: 0}
   - spriteType: 2
     unlockTime: 90
     spawnTime: 1
     health: 5
     speed: 6
     spawnWeight: 1
+    Target: {fileID: 0}
   - spriteType: 3
     unlockTime: 120
     spawnTime: 0.7
     health: 50
     speed: 2
     spawnWeight: 0.2
+    Target: {fileID: 0}
   spawnPoints:
   - {fileID: 1105005547}
   - {fileID: 1636148317}
