@@ -15,9 +15,7 @@ MonoBehaviour:
   itemType: 1
   itemId: 4
   itemName: Range
-  itemDescription: 'Range and velocity increased by {0}%
-
-'
+  itemDescription: "Range and velocity \nincreased by {0}%\n"
   itemIcon: {fileID: -1002307068, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   base_dmg: 3
   base_count: 0

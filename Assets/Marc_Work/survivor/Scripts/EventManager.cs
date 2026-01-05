@@ -13,10 +13,13 @@ public class EventManager : MonoBehaviour
     private float eventTimer = 0f;
     private bool eventActive = false;
     private SpawnerMonster spawner;
+    private GameObject currentChest;
+    private PlayerChestArrow playerArrow;
 
     void Start()
     {
         spawner = FindObjectOfType<SpawnerMonster>();
+        playerArrow = FindObjectOfType<PlayerChestArrow>();
     }
 
     void Update()
@@ -38,26 +41,30 @@ public class EventManager : MonoBehaviour
     {
         eventActive = true;
         Vector3 chestPos = GetRandomPositionOnMap();
-        GameObject chest = Instantiate(chestPrefab, chestPos, Quaternion.identity);
+        currentChest = Instantiate(chestPrefab, chestPos, Quaternion.identity);
 
         float radius = 3f;
-        for (int i = 0; i < 3; i++)
-        {
-            float angle = i * 120 * Mathf.Deg2Rad;
-            Vector3 turretPos = chestPos + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * radius;
-            int turretType = i % turretPrefabs.Length;
-            Instantiate(turretPrefabs[turretType], turretPos, Quaternion.identity);
-        }
 
         UIManager.Instance.ShowBanner("Un événement est apparu !");
 
         if (spawner != null)
             spawner.StartEvent(eventDuration);
+
+        if (playerArrow != null)
+            playerArrow.SetChestTarget(currentChest.transform);
     }
 
     public void EndChestEvent(bool victory)
     {
         eventActive = false;
+
+        if (playerArrow != null)
+            playerArrow.ClearChestTarget();
+
+        if (currentChest != null)
+            Destroy(currentChest);
+        currentChest = null;
+
         if (spawner != null)
             spawner.EndEvent();
 

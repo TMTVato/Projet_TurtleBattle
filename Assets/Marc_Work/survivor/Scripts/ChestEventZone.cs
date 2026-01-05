@@ -10,6 +10,7 @@ public class ChestEventZone : MonoBehaviour
     public Color zoneColor = new Color(0.2f, 0.8f, 0.2f, 0.5f);
 
     private bool playerInZone = false;
+    private PlayerChestArrow playerArrow;
 
     void Start()
     {
@@ -19,6 +20,7 @@ public class ChestEventZone : MonoBehaviour
         if (zoneRenderer != null)
             zoneRenderer.color = zoneColor;
         timeRemaining = eventDuration;
+        playerArrow = FindObjectOfType<PlayerChestArrow>();
     }
 
     void Update()
@@ -43,6 +45,8 @@ public class ChestEventZone : MonoBehaviour
         {
             playerInZone = true;
             Debug.Log("Joueur est entré dans la zone.");
+            if (playerArrow != null)
+                playerArrow.SetInZone(true);
         }
     }
 
@@ -52,6 +56,8 @@ public class ChestEventZone : MonoBehaviour
         {
             playerInZone = false;
             Debug.Log("Joueur a quitté la zone.");
+            if (playerArrow != null)
+                playerArrow.SetInZone(false);
         }
     }
 }

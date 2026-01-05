@@ -10,7 +10,7 @@ public class TurretUIManager : MonoBehaviour
     public int[] maxTurretsPerType;
     private int[] placedTurretsPerType;
     private GameObject selectedTurret;
-    private int selectedIndex = 0;
+    private int selectedIndex = -1;
 
     void Start()
     {
@@ -28,7 +28,7 @@ public class TurretUIManager : MonoBehaviour
 
     public void SelectTurret(int index)
     {
-        if (unlockedTurrets[index])
+        if (index >= 0 && index < turretPrefabs.Length && unlockedTurrets[index])
         {
             selectedTurret = turretPrefabs[index];
             selectedIndex = index;
@@ -37,7 +37,7 @@ public class TurretUIManager : MonoBehaviour
 
     public void TryPlaceTurret(TurretSlot slot)
     {
-        if (selectedTurret != null && unlockedTurrets[selectedIndex] &&
+        if (selectedTurret != null && selectedIndex >= 0 && unlockedTurrets[selectedIndex] &&
             placedTurretsPerType[selectedIndex] < maxTurretsPerType[selectedIndex] &&
             slot.currentTurret == null)
         {
@@ -82,7 +82,7 @@ public class TurretUIManager : MonoBehaviour
             if (!unlockedTurrets[i])
             {
                 unlockedTurrets[i] = true;
-                maxTurretsPerType[i]++; // Ajoute cette ligne !
+                maxTurretsPerType[i]++;
                 UpdateTurretButtons();
                 return;
             }
