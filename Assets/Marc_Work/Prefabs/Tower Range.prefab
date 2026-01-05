@@ -59,7 +59,7 @@ MonoBehaviour:
   bullet_life_time: 0.87
   bullet_size: 0.9
   bullet_damage: 10
-  bullet_penetration: 2
+  bullet_penetration: 3
 --- !u!70 &8660753893681251375
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

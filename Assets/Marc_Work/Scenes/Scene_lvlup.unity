@@ -15332,10 +15332,10 @@ MonoBehaviour:
   exp: 0
   HP: 0
   maxHP: 200
-  nextExp: 03000000050000000a0000001e0000003c0000005a000000730000008200000091000000a6000000b9000000cd000000e2000000f80000000f010000270100002c0100009001000090010000
+  nextExp: 050000000a00000010000000170000001f00000028000000320000003d000000490000005600000064000000730000008300000094000000a6000000b9000000cd000000e2000000f80000000f01000027010000400100005a0100007501000091010000
   turtleHP: 0
   turtleMaxHP: 1000
-  turtleregen: 5
+  turtleregen: 2
   bonusDamage: 0
   bonusFireRate: 0
   bonusPenetration: 0
@@ -26965,27 +26965,31 @@ MonoBehaviour:
   - spriteType: 0
     unlockTime: 40
     spawnTime: 1
-    health: 15
+    health: 30
     speed: 1.5
     spawnWeight: 10
+    Target: {fileID: 1452039147}
   - spriteType: 1
     unlockTime: 80
     spawnTime: 0.5
-    health: 10
+    health: 20
     speed: 3
     spawnWeight: 3
+    Target: {fileID: 2035690351}
   - spriteType: 2
     unlockTime: 120
     spawnTime: 2
-    health: 5
-    speed: 6
+    health: 10
+    speed: 5
     spawnWeight: 1
+    Target: {fileID: 1452039147}
   - spriteType: 3
     unlockTime: 160
     spawnTime: 1.5
-    health: 50
+    health: 100
     speed: 2
     spawnWeight: 0.2
+    Target: {fileID: 1452039147}
   spawnPoints:
   - {fileID: 1105005547}
   - {fileID: 1636148317}

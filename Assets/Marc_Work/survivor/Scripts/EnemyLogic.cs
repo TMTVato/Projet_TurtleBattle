@@ -35,7 +35,6 @@ public class EnemyLogic : MonoBehaviour
 
     void OnEnable()
     {
-        target = GameManager.instance.player.GetComponent<Rigidbody2D>();
         isAlive = true;
         coll.enabled = true;
         rigid.simulated = true;
@@ -51,6 +50,7 @@ public class EnemyLogic : MonoBehaviour
         speed = data.speed;
         maxHealth = data.health;
         health = data.health;
+        target = data.Target.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
