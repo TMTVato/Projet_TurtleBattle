@@ -888,7 +888,7 @@ MonoBehaviour:
   spawnAreaMin: {x: -10, y: -10}
   spawnAreaMax: {x: 10, y: 10}
   eventDuration: 20
-  eventInterval: 35
+  eventInterval: 32
   turretUIManager: {fileID: 1713096789}
 --- !u!4 &296204919
 Transform:
@@ -26974,21 +26974,21 @@ MonoBehaviour:
     spawnTime: 0.5
     health: 20
     speed: 3
-    spawnWeight: 3
+    spawnWeight: 5
     Target: {fileID: 2035690351}
   - spriteType: 2
     unlockTime: 120
     spawnTime: 2
     health: 10
     speed: 5
-    spawnWeight: 1
+    spawnWeight: 3
     Target: {fileID: 1452039147}
   - spriteType: 3
     unlockTime: 160
     spawnTime: 1.5
-    health: 100
+    health: 120
     speed: 2
-    spawnWeight: 0.2
+    spawnWeight: 4
     Target: {fileID: 1452039147}
   spawnPoints:
   - {fileID: 1105005547}

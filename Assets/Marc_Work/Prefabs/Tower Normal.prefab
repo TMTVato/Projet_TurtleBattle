@@ -140,7 +140,7 @@ MonoBehaviour:
   targetingRange: 7
   fire_rate: 0.31
   bullet_velocity: 3.92
-  bullet_life_time: 0.7
+  bullet_life_time: 0.8
   bullet_size: 1.7
   bullet_damage: 2
   bullet_penetration: 1

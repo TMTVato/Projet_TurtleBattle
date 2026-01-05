@@ -59,6 +59,8 @@ public class Tower_shoot : MonoBehaviour
     private void Update()
     {
 
+        FindNearestTarget(); //will search for a target. If it finds it, set it to "target" variable  
+
         if (target != null) //if there is a target
         {
             StartShooting(); //Start shooting phase
@@ -72,15 +74,13 @@ public class Tower_shoot : MonoBehaviour
         else //if there is no target
         {
             StopShooting(); //Stop shooting phase
-            FindTarget(); //will search for a target. If it finds it, set it to "target" variable  
-
         }
     }
     
 
-    private void FindTarget() //target the nearest enemy in range in the ennemy layer mask
+    private void FindNearestTarget() //target the nearest enemy in range in the ennemy layer mask
     {
-        RaycastHit2D[] targets = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2)transform.position, 0f, enemyMask);
+        RaycastHit2D[] targets = Physics2D.CircleCastAll(transform.position, targetingRange, Vector2.zero, 0f, enemyMask);
         float diff = 100;
 
         foreach (RaycastHit2D hit in targets)
