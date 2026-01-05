@@ -130,4 +130,5 @@ public class SpawnData
     public int health = 10;
     public float speed = 2f;
     public float spawnWeight = 1f;
+    public GameObject Target;
 }

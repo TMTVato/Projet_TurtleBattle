@@ -20,5 +20,10 @@ public class TurtleFollow : MonoBehaviour
         {
             transform.position = Vector3.Lerp(transform.position, targetPos, followSpeed * Time.deltaTime / distance);
         }
+
+        //Rotate
+        float angle = Mathf.Atan2(player.position.y - transform.position.y, player.position.x - transform.position.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle + 90));
+        transform.rotation = targetRotation;
     }
 }

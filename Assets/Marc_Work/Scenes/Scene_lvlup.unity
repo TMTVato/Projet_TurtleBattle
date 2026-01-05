@@ -888,7 +888,7 @@ MonoBehaviour:
   spawnAreaMin: {x: -10, y: -10}
   spawnAreaMax: {x: 10, y: 10}
   eventDuration: 20
-  eventInterval: 5
+  eventInterval: 35
   turretUIManager: {fileID: 1713096789}
 --- !u!4 &296204919
 Transform:
@@ -10718,10 +10718,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0.0020325202
-    width: 0.9995101
-    height: 0.9959349
+    x: 0.0005620083
+    y: 0.0021994135
+    width: 0.99812675
+    height: 0.9941349
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -15335,6 +15335,7 @@ MonoBehaviour:
   nextExp: 03000000050000000a0000001e0000003c0000005a000000730000008200000091000000a6000000b9000000cd000000e2000000f80000000f010000270100002c0100009001000090010000
   turtleHP: 0
   turtleMaxHP: 1000
+  turtleregen: 5
   bonusDamage: 0
   bonusFireRate: 0
   bonusPenetration: 0
@@ -18361,8 +18362,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1221756998}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.86, y: 0.85, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.002, y: 0.006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19103,7 +19104,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 15
+  m_Mass: 1000000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -26962,26 +26963,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnData:
   - spriteType: 0
-    unlockTime: 30
-    spawnTime: 0.4
+    unlockTime: 40
+    spawnTime: 1
     health: 15
     speed: 1.5
     spawnWeight: 10
   - spriteType: 1
-    unlockTime: 60
-    spawnTime: 0.2
+    unlockTime: 80
+    spawnTime: 0.5
     health: 10
     speed: 3
     spawnWeight: 3
   - spriteType: 2
-    unlockTime: 90
-    spawnTime: 1
+    unlockTime: 120
+    spawnTime: 2
     health: 5
     speed: 6
     spawnWeight: 1
   - spriteType: 3
-    unlockTime: 120
-    spawnTime: 0.7
+    unlockTime: 160
+    spawnTime: 1.5
     health: 50
     speed: 2
     spawnWeight: 0.2
@@ -27002,7 +27003,7 @@ MonoBehaviour:
   - {fileID: 1924399121}
   - {fileID: 1112943897}
   - {fileID: 1487764993}
-  eventSpawnMultiplier: 3
+  eventSpawnMultiplier: 1.5
 --- !u!1 &2074733716
 GameObject:
   m_ObjectHideFlags: 0
@@ -27586,7 +27587,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   prefabId: 1
-  damage: 11
+  damage: 2
   count: 1
   speed: 0
 --- !u!1 &2131108560
