@@ -13,7 +13,7 @@ public class Tower_shoot : MonoBehaviour
     [SerializeField] private LayerMask enemyMask;
 
     [Header("Attributes")]
-    [SerializeField] public float targetingRange = 5f;
+    [SerializeField] public float targetingRange;
     [SerializeField] public float fire_rate;
     public float bullet_velocity;
     public float bullet_life_time;
@@ -59,6 +59,8 @@ public class Tower_shoot : MonoBehaviour
     private void Update()
     {
 
+        FindNearestTarget(); //will search for a target. If it finds it, set it to "target" variable  
+
         if (target != null) //if there is a target
         {
             StartShooting(); //Start shooting phase
@@ -72,21 +74,25 @@ public class Tower_shoot : MonoBehaviour
         else //if there is no target
         {
             StopShooting(); //Stop shooting phase
-            FindTarget(); //will search for a target. If it finds it, set it to "target" variable  
-
         }
     }
     
 
-    private void FindTarget() //target the first enemy in range in the ennemy layer mask
+    private void FindNearestTarget() //target the nearest enemy in range in the ennemy layer mask
     {
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2)transform.position, 0f, enemyMask);
+        RaycastHit2D[] targets = Physics2D.CircleCastAll(transform.position, targetingRange, Vector2.zero, 0f, enemyMask);
+        float diff = 100;
 
-        //Debug.Log(hits.Length);
-
-        if (hits.Length > 0)
+        foreach (RaycastHit2D hit in targets)
         {
-            target = hits[0].transform;
+            Vector3 myPos = transform.position;
+            Vector3 targetPos = hit.transform.position;
+            float curDiff = Vector3.Distance(myPos, targetPos);
+            if (curDiff < diff)
+            {
+                diff = curDiff;
+                target = hit.transform;
+            }
         }
     }
 

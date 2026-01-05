@@ -53,12 +53,12 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
-  targetingRange: 3
-  fire_rate: 0.8
-  bullet_velocity: 2
-  bullet_life_time: 2
-  bullet_size: 5
-  bullet_damage: 10
+  targetingRange: 4
+  fire_rate: 1.53
+  bullet_velocity: 1.23
+  bullet_life_time: 1.79
+  bullet_size: 4.08
+  bullet_damage: 15
   bullet_penetration: 100
 --- !u!70 &8660753893681251375
 CapsuleCollider2D:

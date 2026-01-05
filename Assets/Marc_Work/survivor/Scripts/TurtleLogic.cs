@@ -13,13 +13,6 @@ public class TurtleLogic : MonoBehaviour
 
     void Update()
     {
-        // Animation de la tête
-        if (head != null && GameManager.instance.player != null)
-        {
-            Vector3 dir = GameManager.instance.player.transform.position - head.position;
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            head.rotation = Quaternion.Euler(0, 0, angle);
-        }
 
         // Animation des pattes
         float anim = Mathf.Sin(Time.time * legAnimSpeed) * legAnimAmount;

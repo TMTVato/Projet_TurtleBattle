@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     [Header("#Turtle Info")]
     public float turtleHP;
     public float turtleMaxHP = 100;
+    public float turtleregen;
 
     public float bonusDamage = 0f;
     public float bonusFireRate = 0f;
@@ -87,6 +88,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        turtleHP += turtleregen * Time.deltaTime;
+
         if (!isLive) return;
         gameTime += Time.deltaTime;
 
