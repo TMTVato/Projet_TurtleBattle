@@ -104,6 +104,7 @@ public class EnemyLogic : MonoBehaviour
         if (health > 0)
         {
             anim.SetTrigger("Hit");
+            AudioManager.instance.PlaySFX(AudioManager.SFX.Hit);
             isStun = true;
             StartStuntime = Time.time;
         }
@@ -116,6 +117,11 @@ public class EnemyLogic : MonoBehaviour
             anim.SetBool("Dead", true);
             GameManager.instance.kill++;
             GameManager.instance.GetExp();
+            if (GameManager.instance.isLive)
+            {
+                AudioManager.instance.PlaySFX(AudioManager.SFX.Dead);
+            }
+            
             //Dead();
         }
     }

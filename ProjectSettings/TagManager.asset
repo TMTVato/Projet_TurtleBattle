@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - Bullet
   - Turtle
+  - Chest
+  - ChestTimer
   layers:
   - Default
   - TransparentFX

@@ -73,6 +73,7 @@ public class EventManager : MonoBehaviour
             if (turretUIManager != null)
                 turretUIManager.UnlockNextOrIncreaseLimit();
             UIManager.Instance.ShowBanner("Victoire de l'événement !");
+            AudioManager.instance.PlaySFX(AudioManager.SFX.LevelUp);
         }
         else
         {

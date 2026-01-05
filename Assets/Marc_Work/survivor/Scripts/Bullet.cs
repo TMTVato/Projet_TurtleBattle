@@ -31,7 +31,7 @@ public class Bullet : MonoBehaviour
         {
             Debug.LogWarning("Turret n'est pas assigné sur le prefab Bullet.");
         }
-
+        AudioManager.instance.PlaySFX(AudioManager.SFX.Range);
     }
 
     // On reçoit toutes les stats bonus ici
