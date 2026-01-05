@@ -32,6 +32,7 @@ public class TurretUIManager : MonoBehaviour
         {
             selectedTurret = turretPrefabs[index];
             selectedIndex = index;
+            AudioManager.instance.PlaySFX(AudioManager.SFX.Select);
         }
     }
 

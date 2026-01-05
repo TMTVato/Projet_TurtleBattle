@@ -34,6 +34,7 @@ public class TurretSlot : MonoBehaviour
                 GameManager.instance.bonusRange
             );
         }
+        AudioManager.instance.PlaySFX(AudioManager.SFX.Select);
     }
 
     public void RemoveTurret()

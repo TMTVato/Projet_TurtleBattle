@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
         turtleHP = turtleMaxHP;
         uiLevelUp.Select(0);
         Resume();
+        AudioManager.instance.PlayBGM(true);
     }
 
     public void GameOver()
@@ -67,6 +68,8 @@ public class GameManager : MonoBehaviour
         uiResult.gameObject.SetActive(true);
         uiResult.Lose();
         Stop();
+        AudioManager.instance.PlayBGM(false);
+        AudioManager.instance.PlaySFX(AudioManager.SFX.Lose);
     }
 
 
@@ -83,6 +86,8 @@ public class GameManager : MonoBehaviour
         uiResult.gameObject.SetActive(true);
         uiResult.Win();
         Stop();
+        AudioManager.instance.PlayBGM(false);
+        AudioManager.instance.PlaySFX(AudioManager.SFX.Win);
     }
 
     void Update()
