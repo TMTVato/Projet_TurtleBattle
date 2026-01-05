@@ -26965,28 +26965,28 @@ MonoBehaviour:
   - spriteType: 0
     unlockTime: 40
     spawnTime: 1
-    health: 30
+    health: 40
     speed: 1.5
     spawnWeight: 10
     Target: {fileID: 1452039147}
   - spriteType: 1
     unlockTime: 80
     spawnTime: 0.5
-    health: 20
+    health: 25
     speed: 3
     spawnWeight: 5
     Target: {fileID: 2035690351}
   - spriteType: 2
     unlockTime: 120
     spawnTime: 2
-    health: 10
+    health: 20
     speed: 5
     spawnWeight: 3
     Target: {fileID: 1452039147}
   - spriteType: 3
     unlockTime: 160
     spawnTime: 1.5
-    health: 120
+    health: 150
     speed: 2
     spawnWeight: 4
     Target: {fileID: 1452039147}
@@ -27591,7 +27591,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   prefabId: 1
-  damage: 2
+  damage: 1
   count: 1
   speed: 0
 --- !u!1 &2131108560
