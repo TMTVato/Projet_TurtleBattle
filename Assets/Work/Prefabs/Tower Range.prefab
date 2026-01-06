@@ -57,7 +57,7 @@ MonoBehaviour:
   fire_rate: 1.03
   bullet_velocity: 7.56
   bullet_life_time: 0.87
-  bullet_size: 0.9
+  bullet_size: 1.15
   bullet_damage: 10
   bullet_penetration: 3
 --- !u!70 &8660753893681251375

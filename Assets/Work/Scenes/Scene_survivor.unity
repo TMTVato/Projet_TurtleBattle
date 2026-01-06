@@ -10502,10 +10502,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+    x: 0.0022607385
+    y: 0.0038143676
+    width: 0.9947249
+    height: 0.9917356
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -27039,9 +27039,9 @@ MonoBehaviour:
   - spriteType: 0
     unlockTime: 40
     spawnTime: 0.4
-    health: 10
+    health: 12
     speed: 1.5
-    spawnWeight: 10
+    spawnWeight: 1
     Target: {fileID: 1452039147}
   - spriteType: 1
     unlockTime: 80
@@ -27052,15 +27052,15 @@ MonoBehaviour:
     Target: {fileID: 2035690351}
   - spriteType: 2
     unlockTime: 120
-    spawnTime: 0.3
-    health: 30
+    spawnTime: 0.5
+    health: 40
     speed: 5
-    spawnWeight: 3
+    spawnWeight: 8
     Target: {fileID: 1452039147}
   - spriteType: 3
     unlockTime: 160
-    spawnTime: 0.7
-    health: 50
+    spawnTime: 0.4
+    health: 80
     speed: 2
     spawnWeight: 4
     Target: {fileID: 1452039147}
