@@ -20,10 +20,10 @@ MonoBehaviour:
   base_dmg: 3
   base_count: 0
   level_dmg:
-  - 10
-  - 20
-  - 30
-  - 40
-  - 70
+  - 1
+  - 2
+  - 3
+  - 4
+  - 7
   level_count: 0000000000000000000000000000000000000000
   proj: {fileID: 0}

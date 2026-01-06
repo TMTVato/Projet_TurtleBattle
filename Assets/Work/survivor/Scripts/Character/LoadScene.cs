@@ -20,7 +20,7 @@ public class LoadScene : MonoBehaviour
     public void LoadGame()
     {
         AudioManager.instance.PlaySFX(AudioManager.SFX.Select);
-        SceneManager.LoadScene("Scene_lvlup");
+        SceneManager.LoadScene("Scene_survivor");
 
     }
 }
