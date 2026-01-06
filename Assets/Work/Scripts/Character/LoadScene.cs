@@ -19,6 +19,7 @@ public class LoadScene : MonoBehaviour
 
     public void LoadGame()
     {
+        //Load la scene du jeu principal
         AudioManager.instance.PlaySFX(AudioManager.SFX.Select);
         SceneManager.LoadScene("Scene_survivor");
 

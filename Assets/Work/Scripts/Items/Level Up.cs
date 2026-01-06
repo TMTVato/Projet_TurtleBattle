@@ -12,7 +12,7 @@ public class LevelUp : MonoBehaviour
         rect = GetComponent<RectTransform>();
         items = GetComponentsInChildren<Item>(true);
     }
-
+    // Affiche level-up UI
     public void Show()
     {
         Next();
@@ -21,7 +21,7 @@ public class LevelUp : MonoBehaviour
         AudioManager.instance.PlaySFX(AudioManager.SFX.LevelUp);
         AudioManager.instance.HighPassBGM(true);
     }
-
+    // Cache level-up UI
     public void Hide()
     {
         rect.localScale = Vector3.zero;
@@ -29,14 +29,14 @@ public class LevelUp : MonoBehaviour
         AudioManager.instance.PlaySFX(AudioManager.SFX.Select);
         AudioManager.instance.HighPassBGM(false);
     }
-
+    //Sélectionne un item
     public void Select(int index)
     {
         items[index].OnClick();
         Hide();
     }
 
-    // Method to prepare the next set of items
+    // Prépare les items à afficher lors du level-up
     private void Next()
     {
         // 1. Désactive tous les items

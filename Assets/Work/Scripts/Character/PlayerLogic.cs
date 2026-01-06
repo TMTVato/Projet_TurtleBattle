@@ -32,7 +32,7 @@ public class PlayerLogic : MonoBehaviour
     void Update()
     {
         if (!GameManager.instance.isLive) return;
-
+        //récupère input
         movementInput.x = Input.GetAxisRaw("Horizontal");
         movementInput.y = Input.GetAxisRaw("Vertical");
     }
@@ -73,9 +73,9 @@ public class PlayerLogic : MonoBehaviour
 
         GameManager.instance.HP -= Time.deltaTime * 10;
 
-        if (GameManager.instance.HP < 0) // player dead
+        if (GameManager.instance.HP < 0) // joueur mort
         {
-            for (int i = 2; i < transform.childCount; i++) // disable all children except the first two (shadow and area)
+            for (int i = 2; i < transform.childCount; i++) // désactive tous les childs sauf (shadow and area)
             {
                 transform.GetChild(i).gameObject.SetActive(false);  
             }

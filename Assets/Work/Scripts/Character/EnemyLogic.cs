@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class EnemyLogic : MonoBehaviour
 {
-
+    // Enemy stats
     public float speed;
     public float health;
     public float maxHealth;
     public float hitstun_duration;
     public RuntimeAnimatorController[] animCon;
-
+    
     public Rigidbody2D target;
     bool isAlive;
     private bool isStun = false;
@@ -32,7 +32,7 @@ public class EnemyLogic : MonoBehaviour
         coll = GetComponent<Collider2D>();
     }
 
-
+    // Réinitialise l'ennemi lorsqu'il est activé
     void OnEnable()
     {
         isAlive = true;
@@ -43,7 +43,7 @@ public class EnemyLogic : MonoBehaviour
         health = maxHealth;
 
     }
-
+    //Initialisation de l'ennemi avec les données de spawn
     public void Initialisation(SpawnData data)
     {
         anim.runtimeAnimatorController = animCon[data.spriteType];
@@ -53,7 +53,7 @@ public class EnemyLogic : MonoBehaviour
         target = data.Target.GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
+    
     void FixedUpdate()
     {
         if (!GameManager.instance.isLive) return;
@@ -83,24 +83,28 @@ public class EnemyLogic : MonoBehaviour
         spriter.flipX = target.position.x < rigid.position.x;
     }
 
+    // Détecte les collisions avec les balles
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //ignore si ce n'est pas une balle, si l'ennemi est mort ou stun
         if ((!collision.CompareTag("Bullet")) || !isAlive || (isStun == true))
         {
             return;
         }
-
+        //prend les dégâts de la balle
         Bullet bullet = collision.GetComponent<Bullet>();
         if (bullet != null)
         {
             TakeDamage(bullet.damage);
         }
     }
-
+    // Applique les dégâts à l'ennemi
     public void TakeDamage(float damage)
     {
+        //réduit la vie de l'ennemi
         health -= damage;
         StartCoroutine(KnockBack());
+        //vérifie si l'ennemi est mort ou stun
         if (health > 0)
         {
             anim.SetTrigger("Hit");
@@ -108,6 +112,7 @@ public class EnemyLogic : MonoBehaviour
             isStun = true;
             StartStuntime = Time.time;
         }
+        //si mort, lance la séquence de mort
         else
         {
             isAlive = false;
@@ -126,17 +131,17 @@ public class EnemyLogic : MonoBehaviour
         }
     }
 
-    // Coroutine for knockback effect
+    // Coroutine pour l'effet knockback 
     private IEnumerator KnockBack()
     {
         yield return wait;
         Vector3 playerPos = GameManager.instance.player.transform.position;
         Vector3 dirVec = transform.position - playerPos;
-        // Apply knockback force
+        // Ajoute knockback
         rigid.AddForce(dirVec.normalized * 1.2f, ForceMode2D.Impulse);
     }
 
-    // Method called when the enemy is dead
+    // Désactive l'ennemi
     private void Dead()
     {
         gameObject.SetActive(false);
@@ -149,7 +154,7 @@ public class EnemyLogic : MonoBehaviour
     }
 
 
-
+    // Vérifie si l'ennemi est en état de stun
     private void CheckisStun()
     {
         if ((isStun == true) && (Time.time >= StartStuntime + hitstun_duration))

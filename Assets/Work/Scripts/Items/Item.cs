@@ -28,7 +28,7 @@ public class Item : MonoBehaviour
         textName.text = itemData.itemName;
 
     }
-
+    
     private void OnEnable()
     {
         textlvl.text = "Lv." + (lvl + 1).ToString();
