@@ -18,15 +18,16 @@ public class Scanner : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        //Scan pour les cibles dans la zone
         targets = Physics2D.CircleCastAll(transform.position, scanRange, Vector2.zero, 0f, targetLayer);
         nearestTarget = FindNearestTarget();
     }
-
+    // Trouve la cible la plus proche parmi celles détectées
     Transform FindNearestTarget()
     {
         Transform nearest = null;
         float diff = 100;
-
+        // Parcours toutes les cibles détectées
         foreach (RaycastHit2D hit in targets)
         {
             Vector3 myPos = transform.position;

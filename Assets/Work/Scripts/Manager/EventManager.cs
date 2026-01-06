@@ -28,6 +28,7 @@ public class EventManager : MonoBehaviour
 
         if (!eventActive)
         {
+            // Gère le timer pour déclencher un nouvel événement
             eventTimer += Time.deltaTime;
             if (eventTimer >= eventInterval)
             {
@@ -36,11 +37,13 @@ public class EventManager : MonoBehaviour
             }
         }
     }
-
+    // Déclenchement de l'événement coffre
     public void SpawnChestEvent()
     {
         eventActive = true;
+        // Spawn du coffre à une position aléatoire
         Vector3 chestPos = GetRandomPositionOnMap();
+        //Instantiate du coffre
         currentChest = Instantiate(chestPrefab, chestPos, Quaternion.identity);
 
         float radius = 3f;
@@ -49,11 +52,12 @@ public class EventManager : MonoBehaviour
 
         if (spawner != null)
             spawner.StartEvent(eventDuration);
-
+        // Indique la position du coffre à l'UI flèche
         if (playerArrow != null)
             playerArrow.SetChestTarget(currentChest.transform);
     }
 
+    // Fin de l'événement coffre
     public void EndChestEvent(bool victory)
     {
         eventActive = false;
@@ -71,7 +75,7 @@ public class EventManager : MonoBehaviour
         if (victory)
         {
             if (turretUIManager != null)
-                turretUIManager.UnlockNextOrIncreaseLimit();
+                turretUIManager.UnlockNextOrIncreaseLimit(); // Débloque la tourelle suivante ou augmente la limite
             UIManager.Instance.ShowBanner("Victoire de l'événement !");
             AudioManager.instance.PlaySFX(AudioManager.SFX.LevelUp);
         }
@@ -80,7 +84,7 @@ public class EventManager : MonoBehaviour
             UIManager.Instance.ShowBanner("Échec de l'événement !");
         }
     }
-
+    // Génère une position aléatoire dans la zone définie
     private Vector3 GetRandomPositionOnMap()
     {
         float x = Random.Range(spawnAreaMin.x, spawnAreaMax.x);

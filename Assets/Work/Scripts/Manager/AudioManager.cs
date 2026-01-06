@@ -18,7 +18,7 @@ public class AudioManager : MonoBehaviour
     public int channels;
     AudioSource[] sfxPlayers;
     int channelsIndex;
-
+    //Toutes les SFX possibles
     public enum SFX
     {
         Dead,
@@ -64,9 +64,9 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySFX(SFX sfx)
+    public void PlaySFX(SFX sfx) //Joue une SFX si celui-ci n'est pas déjà en cours de lecture
     {
-        for (int i = 0; i < sfxPlayers.Length; i++)
+        for (int i = 0; i < sfxPlayers.Length; i++) 
         {
             int loopIndex = (channelsIndex + i) % sfxPlayers.Length;
 
@@ -89,7 +89,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayBGM(bool isPlay)
+    public void PlayBGM(bool isPlay) //Démarre ou arrête la BGM
     {
         if (!isPlay)
         {
@@ -101,7 +101,7 @@ public class AudioManager : MonoBehaviour
             bgmPlayer.Play();
         }
     }
-    public void HighPassBGM(bool isPlay)
+    public void HighPassBGM(bool isPlay) //Active ou désactive le filtre sur la BGM (étouffe)
     {
         bgmHighPass.enabled = isPlay;
     }

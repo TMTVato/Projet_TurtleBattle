@@ -20,8 +20,10 @@ public class content : MonoBehaviour
 
     void Update()
     {
+        // Déplace la balle en fonction de la vélocité définie dans Turret
         transform.Translate(Vector2.right * Time.deltaTime * Turret.bullet_velocity);
 
+        // Détruit la balle après son temps de vie défini dans Turret
         if (Time.time >= startTime + Turret.bullet_life_time)
         {
             Destroy(gameObject,0f);

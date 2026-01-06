@@ -8,11 +8,11 @@ public class EndGame : MonoBehaviour
 
    public void Lose()
     {
-        titles[0].SetActive(true);
+        titles[0].SetActive(true); // Active le titre de défaite
     }
 
     public void Win()
     {
-        titles[1].SetActive(true);
+        titles[1].SetActive(true); // Active le titre de victoire
     }
 }

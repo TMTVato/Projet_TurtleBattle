@@ -37,19 +37,20 @@ public class Tower_shoot : MonoBehaviour
         base_bullet_damage = bullet_damage;
         base_bullet_penetration = bullet_penetration;
         base_speed = bullet_velocity;
-        base_targetingRange = targetingRange; // Ajoute cette ligne
+        base_targetingRange = targetingRange; 
     }
 
-    // Méthode à appeler pour appliquer les bonus
+    // Méthode à appeler pour appliquer les bonus aux statistiques de la tour
     public void ApplyBonuses(float bonusDamage, float bonusFireRate, float bonusPenetration, float bonusSpeed, float bonusRange)
     {
+        // Calcul des nouvelles statistiques avec les bonus 
         bullet_damage = base_bullet_damage * (1f + bonusDamage);
-        fire_rate = base_fire_rate / (1f + bonusFireRate);
+        fire_rate = base_fire_rate / (1f + bonusFireRate); //fire rate augmente quand valeur baisse 
         bullet_penetration = base_bullet_penetration * (1f + bonusPenetration);
         bullet_velocity = base_speed * (1f + bonusSpeed);
         targetingRange = base_targetingRange * (1f + bonusRange);
 
-        if (shooting)
+        if (shooting) //Si la tourelle tire, on met à jour avec le nouveau fire_rate
         {
             CancelInvoke();
             InvokeRepeating("SpawnBullet", fire_rate, fire_rate);
@@ -59,72 +60,72 @@ public class Tower_shoot : MonoBehaviour
     private void Update()
     {
 
-        FindNearestTarget(); //will search for a target. If it finds it, set it to "target" variable  
+        FindNearestTarget(); //cherche la cible la plus proche
 
-        if (target != null) //if there is a target
+        if (target != null) 
         {
-            StartShooting(); //Start shooting phase
-            RotateTowardsTarget(); //rotate turret towards target
+            StartShooting(); 
+            RotateTowardsTarget(); 
 
-            if (!CheckTargetIsInRange()) //if target is out of range, lose current target
+            if (!CheckTargetIsInRange()) //Si la cible n'est plus en range
             {
                 target = null;
             }
         }
-        else //if there is no target
+        else 
         {
-            StopShooting(); //Stop shooting phase
+            StopShooting(); 
         }
     }
-    
 
-    private void FindNearestTarget() //target the nearest enemy in range in the ennemy layer mask
+    //Trouve la cible la plus proche dans la zone de ciblage
+    private void FindNearestTarget() 
     {
-        RaycastHit2D[] targets = Physics2D.CircleCastAll(transform.position, targetingRange, Vector2.zero, 0f, enemyMask);
+        RaycastHit2D[] targets = Physics2D.CircleCastAll(transform.position, targetingRange, Vector2.zero, 0f, enemyMask); //Raycast pour trouver les ennemis dans la zone de ciblage
         float diff = 100;
 
-        foreach (RaycastHit2D hit in targets)
+        foreach (RaycastHit2D hit in targets) //parcourt les ennemis trouvés
         {
             Vector3 myPos = transform.position;
             Vector3 targetPos = hit.transform.position;
-            float curDiff = Vector3.Distance(myPos, targetPos);
+            float curDiff = Vector3.Distance(myPos, targetPos); //calcule la distance entre la tourelle et l'ennemi
             if (curDiff < diff)
             {
-                diff = curDiff;
+                diff = curDiff; //met à jour la distance la plus courte
                 target = hit.transform;
             }
         }
     }
 
-    private void RotateTowardsTarget() //rotate turret towards target
+    private void RotateTowardsTarget() //Tourne la flèche de la tourelle vers la cible
     {
-        float angle = Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x) * Mathf.Rad2Deg; //calcule l'angle entre la tourelle et la cible
 
-        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle)); //crée une rotation à partir de l'angle calculé
         ArrowRotationPoint.rotation = targetRotation;
     }
 
-    private bool CheckTargetIsInRange() //check if target is still in range
+    private bool CheckTargetIsInRange() //Vérifie si la cible est toujours dans la zone de ciblage
     {
         return Vector2.Distance(target.position, transform.position) <= targetingRange;
     }
 
     private void StartShooting()
     {
-        if (shooting == false) { shooting = true; InvokeRepeating("SpawnBullet", fire_rate, fire_rate); } //start shooting 
-        if (Arrow.activeInHierarchy == false) { Arrow.SetActive(true); } //show arrow 
+        if (shooting == false) { shooting = true; InvokeRepeating("SpawnBullet", fire_rate, fire_rate); } //Invoke pour tirer à intervalles réguliers
+        if (Arrow.activeInHierarchy == false) { Arrow.SetActive(true); } //montre arrow 
     } //Start shooting phase
 
     private void StopShooting()
     {
         if (shooting == true) { shooting = false; CancelInvoke(); } //stop shooting 
-        if (Arrow.activeInHierarchy == true) { Arrow.SetActive(false); } //hide arrow 
+        if (Arrow.activeInHierarchy == true) { Arrow.SetActive(false); } //cache arrow 
     } //Stop shooting phas
 
     private void SpawnBullet()
     {
         Vector3 dir = (target.position - transform.position).normalized;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f; //ajuste angle to match sprite orientation
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f; //ajuste angle pour match sprite orientation
         Quaternion rot = Quaternion.Euler(0, 0, angle);
 
         GameObject bulletObj = Instantiate(projectile, transform.position, rot);
@@ -147,9 +148,9 @@ public class Tower_shoot : MonoBehaviour
     {
         Handles.color = Color.red;
         Handles.DrawWireDisc(transform.position, transform.forward, targetingRange);
-    }//draw max range when tower is selected in the editor
+    }//Dessine la zone de ciblage dans l'éditeur pour le débogage
 
-
+    // Getters et Setters pour les attributs de la tour
     public void SetFireRate(float newRate)
     {
         fire_rate = newRate;

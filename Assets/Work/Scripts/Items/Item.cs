@@ -31,6 +31,7 @@ public class Item : MonoBehaviour
     
     private void OnEnable()
     {
+        //Change la description en fonction du niveau de l'item
         textlvl.text = "Lv." + (lvl + 1).ToString();
         switch (itemData.itemType)
         {
@@ -57,7 +58,7 @@ public class Item : MonoBehaviour
     {
         textlvl.text = "Lv." + (lvl + 1).ToString();
     }
-
+    //Méthode appelée lors du clic sur l'item dans l'inventaire
     public void OnClick()
     {
         switch (itemData.itemType)
@@ -77,8 +78,8 @@ public class Item : MonoBehaviour
                 lvl++;
                 break;
 
-            case ItemData.ItemType.Melee: //damage tower and shovel
-                if (lvl == 0) // If the item is at level 0, create a new weapon and initialize it with item data
+            case ItemData.ItemType.Melee: //damage tower et fourche
+                if (lvl == 0) // Si l'item est au niveau 0, créer une nouvelle arme et l'initialiser avec les données de l'item
                 {
                     GameObject newWeapon = new GameObject();
                     weapon = newWeapon.AddComponent<Weapon>();
@@ -87,7 +88,7 @@ public class Item : MonoBehaviour
                     gear = newGear.AddComponent<Gear>();
                     gear.Init(itemData);
                 }
-                else  // If the item is at a higher level, level up the existing weapon
+                else  // Si l'item est à un niveau supérieur, faire évoluer l'arme existante
                 {
                     float nextDmg = itemData.base_dmg;
                     int nextCount = 0;
@@ -119,13 +120,13 @@ public class Item : MonoBehaviour
                 break;
 
             case ItemData.ItemType.Shoe: //speed
-                if (lvl == 0) // If the item is at level 0, create a new weapon and initialize it with item data
+                if (lvl == 0) 
                 {
                     GameObject newGear = new GameObject();
                     gear = newGear.AddComponent<Gear>();
                     gear.Init(itemData);
                 }
-                else  // If the item is at a higher level, level up the existing weapon
+                else  
                 {
                     float nextRate = itemData.level_dmg[lvl];
                     gear.LevelUp(nextRate);

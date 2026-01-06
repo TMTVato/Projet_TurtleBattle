@@ -35,7 +35,7 @@ public class ChestEventZone : MonoBehaviour
         timeRemaining = eventDuration;
         playerArrow = FindObjectOfType<PlayerChestArrow>();
 
-        FindProgressUI();
+        FindProgressUI(); // Trouver et configurer le Slider de progression
 
         if (progressSlider != null)
         {
@@ -59,7 +59,7 @@ public class ChestEventZone : MonoBehaviour
             Debug.Log("Timer Slider initialisé et masqué");
         }
     }
-
+    // Méthode pour trouver le Slider dans la scène
     void FindProgressUI()
     {
         GameObject timerSlider = GameObject.FindGameObjectWithTag("ChestTimer");
@@ -91,14 +91,14 @@ public class ChestEventZone : MonoBehaviour
         timer += Time.deltaTime;
         timeRemaining = Mathf.Max(0f, eventDuration - timer);
 
-        if (playerInZone && !chestUnlocked)
+        if (playerInZone && !chestUnlocked) //Si le joueur est dans la zone et le coffre n'est pas déverrouillé
         {
-            unlockTimer += Time.deltaTime;
+            unlockTimer += Time.deltaTime; // Augmente le timer de déverrouillage
 
             if (progressSlider != null)
                 progressSlider.value = unlockTimer;
 
-            if (unlockTimer >= unlockDuration)
+            if (unlockTimer >= unlockDuration) // Coffre déverrouillé
             {
                 UnlockChest();
                 EndEventImmediately(true); // Terminer immédiatement avec succès
@@ -112,7 +112,7 @@ public class ChestEventZone : MonoBehaviour
         }
     }
 
-    void UnlockChest()
+    void UnlockChest() //Déverrouille le coffre 
     {
         chestUnlocked = true;
         Debug.Log("Coffre déverrouillé !");
@@ -123,7 +123,7 @@ public class ChestEventZone : MonoBehaviour
         }
     }
 
-    void EndEventImmediately(bool success)
+    void EndEventImmediately(bool success) // Termine l'événement immédiatement si succès
     {
         eventActive = false;
         Debug.Log("Fin immédiate de l'événement. Succès : " + success);
@@ -134,15 +134,15 @@ public class ChestEventZone : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other) // Détecte l'entrée du joueur dans la zone
     {
+        // Vérifie si c'est le joueur qui entre dans la zone
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             playerInZone = true;
             Debug.Log("Joueur est entré dans la zone.");
             if (playerArrow != null)
                 playerArrow.SetInZone(true);
-
             if (canvasGroup != null && !chestUnlocked)
             {
                 canvasGroup.alpha = 1f;
@@ -153,13 +153,15 @@ public class ChestEventZone : MonoBehaviour
         }
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    void OnTriggerExit2D(Collider2D other) // Détecte la sortie du joueur de la zone
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            // Réinitialise le timer de déverrouillage
             playerInZone = false;
             unlockTimer = 0f;
             Debug.Log("Joueur a quitté la zone. Progression réinitialisée.");
+
 
             if (playerArrow != null)
                 playerArrow.SetInZone(false);

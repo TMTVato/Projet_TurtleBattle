@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public bool isLive;
     public float gameTime;
     public float maxGameTime = 2*10f;
+
     [Header("#player Info")]
     public int level;
     public int kill;
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
     public float turtleMaxHP = 100;
     public float turtleregen;
 
+    [Header("#Bonus Stats Turrets")]
     public float bonusDamage = 0f;
     public float bonusFireRate = 0f;
     public float bonusPenetration = 0f;
@@ -63,6 +65,7 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator GameOverRoutine()
     {
+        //gère le game over en affichant l'écran de fin et en stoppant le jeu
         isLive = false;
         yield return new WaitForSeconds(0.5f);
         //stop the game
@@ -80,6 +83,7 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator GameVictoryRoutine()
     {
+        //gère la victoire en affichant l'écran de victoire et en stoppant le jeu
         isLive = false;
         enemyCleaner.SetActive(true);
         yield return new WaitForSeconds(0.5f);
@@ -93,11 +97,13 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        turtleHP += turtleregen * Time.deltaTime;
+        //Regen la vie du turtle
+        //turtleHP += turtleregen * Time.deltaTime;
+
 
         if (!isLive) return;
         gameTime += Time.deltaTime;
-
+        //Vérifie si le temps de jeu a atteint le maximum = fin du jeu
         if (gameTime > maxGameTime)
         {
             gameTime = maxGameTime;
@@ -105,12 +111,12 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
+    // Gagne de l'expérience
     public void GetExp()
     {
         if (!isLive) return;
         exp++;
-
+        // Vérifie si le joueur a atteint l'expérience nécessaire pour monter de niveau
         if (exp == nextExp[Mathf.Min(level, nextExp.Length -1)])
         {
             level++;
@@ -119,21 +125,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Stop the game
+    // Stop le jeu
     public void Stop()
     {
         isLive = false;
-        Time.timeScale = 0; // Pause the game
+        Time.timeScale = 0; // Pause le jeu
     }
 
-    // Resume the game
+    // Resume le jeu
     public void Resume()
     {
         isLive = true;
-        Time.timeScale = 1; // Resume normal time scale
+        Time.timeScale = 1; // Resume valeur normale du temps
     }
 
-    public void Reset() // Restart the current scene when called
+    public void Reset() //Reload la scène actuelle
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

@@ -10,23 +10,23 @@ public class Gear : MonoBehaviour
 
     public void Init(ItemData data)
     {
-        // Basic set
+        //Set basique
         name = "Gear " + data.itemId;
         transform.parent = GameManager.instance.player.transform;
         transform.localPosition = Vector3.zero;
 
-        // Property set
+        //Set propriétés
         type = data.itemType;
         rate = data.level_dmg[0];
         ApplyGear();
     }
-
+    
     public void LevelUp(float rate)
     {
         this.rate = rate;
         ApplyGear();
     }
-
+    //Applique les bonus de l'équipement en fonction de son type
     void ApplyGear()
     {
         switch (type)
@@ -46,7 +46,7 @@ public class Gear : MonoBehaviour
                 break;
         }
     }
-
+    //Augmente les damages des tours 
     private void DamageUp()
     {
         GameManager.instance.bonusDamage = rate;
@@ -62,7 +62,7 @@ public class Gear : MonoBehaviour
             );
         }
     }
-
+    //Augmente le fire rate des tours
     private void FireRateUp()
     {
         GameManager.instance.bonusFireRate = rate;
@@ -78,7 +78,7 @@ public class Gear : MonoBehaviour
             );
         }
     }
-
+    //Augmente la penetration des tours
     private void PenetrationUp()
     {
         GameManager.instance.bonusPenetration = rate;
@@ -94,7 +94,7 @@ public class Gear : MonoBehaviour
             );
         }
     }
-
+    //Augmente la vitesse du joueur
     void SpeedUp()
     {
         float speed = 6;
@@ -113,7 +113,7 @@ public class Gear : MonoBehaviour
         }
     }
 
-
+    //Augmente la portée des tours
     private void RangeUp()
     {
         GameManager.instance.bonusRange = rate;

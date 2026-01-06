@@ -17,11 +17,11 @@ public class Bullet : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        // Correction : Initialiser Turret si non assigné dans l'inspecteur
+
         if (Turret == null)
             Turret = GetComponentInParent<Tower_shoot>();
 
-        // Vérification supplémentaire pour éviter le NullReferenceException
+        // Vérification pour éviter le NullReferenceException
         if (Turret != null)
         {
             damage = Turret.bullet_damage;
@@ -34,7 +34,7 @@ public class Bullet : MonoBehaviour
         AudioManager.instance.PlaySFX(AudioManager.SFX.Range);
     }
 
-    // On reçoit toutes les stats bonus ici
+    // On reçoit toutes les stats bonus ici depuis le turret
     public void Init(float damage, float per, float velocity, float lifeTime, float size, Vector3 dir)
     {
         this.damage = damage;
@@ -47,7 +47,7 @@ public class Bullet : MonoBehaviour
         transform.localScale = Vector3.one * size;
         startTime = Time.time;
     }
-
+    // Spécifique pour la pelle
     public void InitShovel(float damage, float per, Vector3 dir)
     {
         this.damage = damage;
@@ -64,13 +64,14 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
+
         if (Turret != null)
         {
-            transform.Translate(Vector2.up * Time.deltaTime * Turret.bullet_velocity);
+            transform.Translate(Vector2.up * Time.deltaTime * Turret.bullet_velocity); //Déplace la balle 
 
             if (Time.time >= startTime + Turret.bullet_life_time)
             {
-                Destroy(gameObject, 0f);
+                Destroy(gameObject, 0f); //Détruit la balle après un certain temps
             }
         }
     }
@@ -85,9 +86,9 @@ public class Bullet : MonoBehaviour
         if (enemy != null)
             enemy.TakeDamage(damage);
 
-        per--;
+        per--; // Réduire la pénétration = nb ennemis traversés
 
-        if (per == -1)
+        if (per == -1) // Si la pénétration est épuisée, détruire la balle
         {
             rb.velocity = Vector2.zero;
             Destroy(gameObject);

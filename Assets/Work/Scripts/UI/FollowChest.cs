@@ -16,6 +16,7 @@ public class FollowChest : MonoBehaviour
         FindChest();
     }
 
+    // Recherche le coffre dans la scène et assigne sa position pour pouvoir placer le Slider timer dessus
     void FindChest()
     {
         GameObject chest = GameObject.FindGameObjectWithTag("Chest");
@@ -34,7 +35,7 @@ public class FollowChest : MonoBehaviour
             FindChest();
             return;
         }
-
+        // Met à jour la position du Slider pour suivre le coffre
         Vector3 screenPos = Camera.main.WorldToScreenPoint(chestTarget.position);
         rectTransform.position = screenPos + offset;
     }

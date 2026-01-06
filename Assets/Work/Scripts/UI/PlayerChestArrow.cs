@@ -17,9 +17,10 @@ public class PlayerChestArrow : MonoBehaviour
 
     private void Update()
     {
+        //Si le coffre existe et que le joueur n'est pas dans la zone du coffre
         if (chestTarget != null && !isInChestZone)
         {
-            ShowArrow();
+            ShowArrow(); //Indicateur position coffre 
             RotateTowardsChest();
         }
         else
@@ -27,16 +28,17 @@ public class PlayerChestArrow : MonoBehaviour
             HideArrow();
         }
     }
-
+    //Faire tourner la flèche vers le coffre
     private void RotateTowardsChest()
     {
+        //Calculer l'angle entre la position du joueur et celle du coffre
         float angle = Mathf.Atan2(chestTarget.position.y - transform.position.y,
                                    chestTarget.position.x - transform.position.x) * Mathf.Rad2Deg;
-
+        //Appliquer la rotation à la flèche
         Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
         arrowRotationPoint.rotation = targetRotation;
     }
-
+    //Méthodes pour : Afficher la flèche ou cacher la flèche
     private void ShowArrow()
     {
         if (arrow != null && !arrow.activeInHierarchy)

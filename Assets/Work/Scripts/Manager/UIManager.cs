@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
-
+    // Affiche un bandeau avec un message 
     public void ShowBanner(string message)
     {
         if (bannerCoroutine != null)
@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
 
         bannerCoroutine = StartCoroutine(ShowBannerCoroutine(message));
     }
-
+    // Coroutine pour afficher le bandeau pendant une durée définie
     private IEnumerator ShowBannerCoroutine(string message)
     {
         bannerPanel.SetActive(true);
